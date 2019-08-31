@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <script src="https://unpkg.com/peerjs@1.0.0/dist/peerjs.min.js"></script>
+    <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <meta charset="utf-8">
+  </head>
+  <body>
+    <p><input id="id"></input><button onclick="connection()">Connect</button></p>
+    <input id="send"></input><button onclick="sending()">Send</button>
+
+    <script>
+      let peer = new Peer();
+      let myid;
+      peer.on('open', (id)=>{
+        myid = id;
+        console.log(id)
+      })
+let x = 0;
+      let connected;
+      function connection(){
+      connected = peer.connect($("#id").val())
+      x++;
+    }
+
+let datas;
+function test(){
+    peer.on("connection", (conn)=>{
+      console.log(conn)
+      alert("connected")
+      if(x == 0){
+      connected = peer.connect(conn.peer)
+      x++;
+    }
+      conn.on("data", (dat)=>{
+        datas = dat
+        datas = JSON.parse(datas)
+        console.log(datas)
+      })
+      // connected.on("open", (data)=>{
+      //   console.log(data + "TWO")
+      // })
+    })
+  }
+
+    function sending(){
+        connected.send($("#send").val())
+    }
+    test()
+//code M170
+    </script>
+
+  </body>
+</html>

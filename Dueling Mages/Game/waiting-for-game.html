@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="https://unpkg.com/peerjs@1.0.0/dist/peerjs.min.js"></script>
+  <style>
+  #topbar{
+    position: absolute;
+    display: inline-block;
+    height: 10%;
+    width: 100%;
+    background-color: gray;
+    left: 0px;
+    top: 0%;
+  }
+
+  #queue{
+    position: absolute;
+    display: inline-block;
+    height: 90%;
+    width: 50%;
+    background-color: blue;
+    top: 10%;
+    right: 25%;
+    overflow-y: auto;
+  }
+
+  .games{
+    position: relative;
+    display: block;
+    width: 100%;
+    left: 0%;
+
+  }
+
+  #UN{
+    display: inline-block;
+    position: absolute;
+    left: 5%;
+    height: 80%;
+    top:10%;
+    width: 35%;
+    font-size: 200%;
+  }
+
+  .opengames{
+    position: relative;
+    display: block;
+    width: 100%;
+    height: 9%;
+    padding-bottom: 1%;
+    background-color: red;
+
+  }
+
+  .UNformat{
+    position: absolute;
+    display: inline-block;
+    width: 40%;
+    height: 60%;
+    left: 5%;
+    top: 20%;
+    font-size: 200%;
+
+  }
+
+  .joingame{
+    position: absolute;
+    display: inline-block;
+    right: 5%;
+    height: 70%;
+    top: 15%;
+    width: 40%;
+  }
+
+  #wfgbut{
+    display: inline-block;
+    position: absolute;
+    right: 5%;
+    height: 80%;
+    width: 10%;
+    top: 10%;
+
+  }
+
+  #refresh{
+    display: inline-block;
+    position: absolute;
+    right: 45%;
+    height: 80%;
+    width: 10%;
+    top: 10%;
+  }
+
+  </style>
+</head>
+<body>
+  <audio autoplay loop>
+    <source src="/Sounds/[ FREE USE ] - Sappheiros - Home [ Creative Commons, Chill ] [No Copyright Sound].mp3" type="audio/mp3">
+    </audio>
+
+  <div id="topbar"><span id="UN"></span><button id="refresh" onclick = "refresh()"> refresh</button> <button id="wfgbut" onclick="wfgadd()">Look for a Game</button></div>
+  <div id="queue">
+  </div>
+
+  <script>
+  $.host = "http://" + window.location.host;
+  let cookiefinder = (cookname) =>{
+    // let text = "Username=null; DuelingMagesSOCOOLVERYHOTWOWIEWOWOMGGOD1LOLOLOOLO=null";
+    let name = cookname + "=";
+    let cookies = document.cookie.split(";")
+    let copy;
+    for(let x=0;x < cookies.length;x++){
+      if(x == 0){
+        copy = cookies[x].substr(0,name.length)
+      }else{
+        copy = cookies[x].substr(1,name.length)
+      }
+      console.log(copy)
+      if(name === copy){
+        return cookies[x].substr(name.length + 1,cookies[x].length)
+      }
+    }
+  }
+
+  let username;
+  let url = $.host + "/wfglist/";
+  username= cookiefinder("DuelingMagesSOCOOLVERYHOTWOWIEWOWOMGGOD1LOLOLOOLOUN");
+  document.getElementById("UN").innerHTML = username;
+
+  let refresh = ()=>{
+    $.get(url, (data, status)=>{
+      console.log(data)
+
+      $("#queue").html("")
+
+      for(let x = 0;x < data[0].length; x++){
+        $("#queue").append(`
+          <div class="opengames"><span class="UNformat"> <b>` + data[0][x]["Username"] + `</b></span>
+          <button class="joingame" onclick="join('` + String(data[0][x].p2pid) +`')">Join Game</button>
+          </div>
+          `)
+        }
+      })}
+
+      var peer = new Peer();
+      var myid;
+
+      peer.on('open', (id)=>{
+        myid = id;
+        console.log(id)
+      })
+
+      let pid;
+
+
+      let join = (ids)=>{
+        // ids = $.pid;
+        let connected = peer.connect(ids)
+        peer.on("connection", (conn)=>{
+          console.log(conn)
+
+          conn.on("open", ()=>{
+            console.log(1)
+            setTimeout(()=>
+            {connected.send(username+ "=2")
+          }, 500)
+        })
+        conn.on("data", (dat)=>{
+          console.log(dat)
+          document.cookie = "DuelingMagesSOCOOLVERYHOTWOWIEWOWOMGGOD1LOLOLOOLOp2prole=rider";
+          setTimeout(()=>{window.location.replace($.host + "/DuelingMagesRider/")}, 500)
+        })
+      })
+
+      peer.on("error", ()=>{
+        $.id = ids;
+        $.ajax({
+          url:$.host + "/wfgdelete/",
+          type: "POST",
+          data: {
+            p2pid: $.id
+          },
+          success: (data)=>{
+            alert("FAILED")
+            refresh()
+
+          }
+        })
+      })
+    }
+
+
+
+    //online stuffs
+
+    let wfgadd = ()=>{
+      $.username = username;
+      $.id = String(myid);
+      console.log($.username + "-" + $.id)
+      // $.ajax for queue
+      $.ajax({
+        url:$.host + "/waiting-for-game/",
+        type: "POST",
+        data: {
+          Username:$.username,
+          p2pid:$.id
+        },
+        success: (data)=>{
+          alert("YAY")
+          refresh()
+          let connected;
+          peer.on("connection", (conn)=>{
+            console.log(conn)
+            connected = peer.connect(conn.peer)
+            conn.on("open",()=>{
+              console.log(1)
+            })
+            conn.on("data", (dat)=>{
+              connected.send("GO")
+              console.log("HERE")
+              console.log(dat)
+              if(dat.substr(dat.length -2, dat.length) === "=2"){
+                $.pname = dat.substr(0, dat.length - 2);
+                document.cookie = "DuelingMagesSOCOOLVERYHOTWOWIEWOWOMGGOD1LOLOLOOLOp2prole=host; path=/";
+                document.cookie = "DuelingMagesSOCOOLVERYHOTWOWIEWOWOMGGOD1LOLOLOOLOp2pname="+ $.pname + "; path=/";
+                $.ajax({
+                  url:$.host + "/wfgdelete/",
+                  type: "POST",
+                  data: {
+                    p2pid: $.id
+                  },
+                  success: (data)=>{
+                    setInterval(()=>{
+                    $.ajax({
+                      url:$.host + "/loading/",
+                      type: "POST",
+                      data: {
+                        Username:$.pname,
+                      },
+                      success: (data)=>{
+                        window.location.replace($.host + "/DuelingMagesHost/")
+
+                      }
+                    })
+                    }, 2000)
+                  }
+                })
+              }
+            })
+          })
+          },error: (res, error)=>{
+            alert("BOO")
+
+          }
+        })
+
+      }
+
+      refresh();
+      </script>
+      </body>
+      </html>

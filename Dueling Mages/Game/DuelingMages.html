@@ -1,0 +1,49 @@
+let scene;
+createScene = function () {
+
+    // This creates a basic Babylon Scene object (non-mesh)
+    scene = new BABYLON.Scene(engine);
+
+    let gravity = new BABYLON.Vector3(0, 0.1, 0)
+    scene.enablePhysics(gravity, new BABYLON.OimoJSPlugin())
+
+    // This creates and positions a free camera (non-mesh)
+    var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 20, ), scene);
+
+    // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
+    var light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+
+    // Default intensity is 1. Let's dim the light a small amount
+    light.intensity = 0.7;
+
+    // Our built-in 'sphere' shape.
+    var sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 2, segments: 32}, scene);
+    sphere.physicsImpostor = new BABYLON.PhysicsImpostor(sphere, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 1, friction: 0.5, restitution: 1 }, scene);
+    sphere.checkCollisions = true;
+
+    // Move the sphere upward 1/2 its height
+    sphere.position.y = 1;
+
+    // This targets the camera to scene origin
+    camera.setTarget(sphere.position);
+
+    // Our built-in 'ground' shape.
+    var ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 10, height: 10}, scene);
+    ground.physicsImpostor = new BABYLON.PhysicsImpostor(ground, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 1, friction: 0.5, restitution: 0 }, scene);
+    ground.checkCollisions = true;
+
+    scene.registerBeforeRender(()=>{
+let map = [];
+      onkeydown = onkeyup = function(e){
+        e = e || event;
+        map[e.keyCode] = e.type === 'keydown';
+        if(map["87"] == true){
+            sphere.PhysicsImpostor.applyImpulse(new BABYLON.Vector3(0, 1, 0).scale(100), sphere.getAbsolutePosition());
+            sphere.position.y +=12
+        }
+      }
+})
+
+    return scene;
+
+};
