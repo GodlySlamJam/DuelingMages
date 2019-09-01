@@ -1,183 +1,188 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Dueling Mages</title>
-     <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-    <style>
-    #UPblock{
-      display: inline-block;
-      position: absolute;
-      width: 70%;
-      height: 60%;
-      top: 20%;
-      left: 15%;
-      background-color: blue;
-    }
+<head>
+  <meta charset="utf-8">
+  <title>Dueling Mages</title>
+  <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <style>
+  #UPblock{
+    display: inline-block;
+    position: absolute;
+    width: 70%;
+    height: 60%;
+    top: 20%;
+    left: 15%;
+    background-color: blue;
+  }
 
-    .fblock{
-      display: block;
-      position: relative;
-      left: 25%;
-      font-size: 200%;
-      width: 50%;
-    }
+  .fblock{
+    display: block;
+    position: relative;
+    left: 25%;
+    font-size: 200%;
+    width: 50%;
+  }
 
-    .titlealign{
-      display: inline-block;
-      position: relative;
-      width: 50%;
-      color: white;
-    }
+  .titlealign{
+    display: inline-block;
+    position: relative;
+    width: 50%;
+    color: white;
+  }
 
-    button{
-      display: block;
-      position: relative;
-      width: 50%;
-      height: 10%;
-      left: 25%;
-    }
+  button{
+    display: block;
+    position: relative;
+    width: 50%;
+    height: 10%;
+    left: 25%;
+  }
 
-    input{
-      position: relative;
-      padding: 0%;
-      left: 4%;
-      width: 45%;
-    }
+  input{
+    position: relative;
+    padding: 0%;
+    left: 4%;
+    width: 45%;
+  }
 
-    p{
-      display: none;
-      position: relative;
-      display: block;
-      color: red;
-      left: 25%;
-      font-weight: bold;
-    }
+  p{
+    display: none;
+    position: relative;
+    display: block;
+    color: red;
+    left: 25%;
+    font-weight: bold;
+  }
 
-    /* #invalid{
-      display: none;
-    }
+  /* #invalid{
+  display: none;
+}
 
-    #asym{
-      display:none;
-    }
+#asym{
+display:none;
+}
 
-    #creationerror{
-      display: none;
-    } */
-    #new{
-      display: none;
-      position: fixed;
-      background-color: darkblue;
-      width: 70%;
-      height: 60%;
-      top: 20%;
-      left: 15%;
-    }
+#creationerror{
+display: none;
+} */
+#new{
+  display: none;
+  position: fixed;
+  background-color: darkblue;
+  width: 70%;
+  height: 60%;
+  top: 20%;
+  left: 15%;
+}
 
-    .scrnchng{
-      color: white;
-    }
-    .scrnchng:hover{
-      color: cyan;
-    }
-      </style>
-  </head>
-  <body>
-    <h1>COOKIES MUST BE ENABLED</h1>
-    <div id="UPblock">
-      <b>
-    <div id="UNblock" class="fblock"> <span class="titlealign">Username: </span><input id="Uname"></input></div>
-    <div id="PSblock" class="fblock"> <span class="titlealign">Password: </span><input type="password" id="Pword"></input></div>
-    <button id="confirm">Login</button>
-  </b>
+.scrnchng{
+  color: white;
+}
+.scrnchng:hover{
+  color: cyan;
+}
+
+h1{
+  bottom: 0px;
+}
+</style>
+</head>
+<body>
+
+  <div id="UPblock">
+    <b>
+      <div id="UNblock" class="fblock"> <span class="titlealign">Username: </span><input id="Uname"></input></div>
+      <div id="PSblock" class="fblock"> <span class="titlealign">Password: </span><input type="password" id="Pword"></input></div>
+      <button id="confirm">Login</button>
+    </b>
     <p id="accountcreate" class="scrnchng">Create an account</p>
     <p id="invalid"></p>
-    </div>
+  </div>
 
-    <div id="new">
-      <div id="UNnew" class="fblock"> <span class="titlealign">Username: </span><input id="Unamenew"></input></div>
-      <div id="PSnew" class="fblock"> <span class="titlealign">Password: </span><input type="password" id="Pwordnew"></input></div>
-      <div id="CPSnew" class="fblock"> <span class="titlealign">Confirm Password: </span><input type="password" id="CPwordnew"></input></div>
-      <button id="create">Create</button>
-      <p id="loginscrn" class="scrnchng">Login</p>
-      <p id="asym">Passwords do not match</p>
-      <p id="userlen">Username must be less then 15 characters</p>
-      <p id="accountmade"></p>
-      <p id="creationerror"></p>
-    </div>
-    <script>
-    $.host = window.location.hostname;
-      $("#confirm").click(()=>{
-        $.ajax({
-          url:$.host + "/login",
-          data: {
-          Username:$("#Uname").val(),
-          Password:$("#Pword").val()
-        },
-          type: "POST",
-          success: (data)=>{
-            window.location.replace($.host + "/waiting-for-game/")
-          },
-          error: (res, error)=>{
-            $("#invalid").html("Invalid Username/Password")
+  <div id="new">
+    <div id="UNnew" class="fblock"> <span class="titlealign">Username: </span><input id="Unamenew"></input></div>
+    <div id="PSnew" class="fblock"> <span class="titlealign">Password: </span><input type="password" id="Pwordnew"></input></div>
+    <div id="CPSnew" class="fblock"> <span class="titlealign">Confirm Password: </span><input type="password" id="CPwordnew"></input></div>
+    <button id="create">Create</button>
+    <p id="loginscrn" class="scrnchng">Login</p>
+    <p id="asym">Passwords do not match</p>
+    <p id="userlen">Username must be less then 15 characters</p>
+    <p id="accountmade"></p>
+    <p id="creationerror"></p>
+  </div>
+  <h1>COOKIES MUST BE ENABLED</h1>
+  <script>
+  $.host = "http://"+window.location.host;
+  $("#confirm").click(()=>{
+    $.ajax({
+      url:$.host + "/login",
+      data: {
+        Username:$("#Uname").val(),
+        Password:$("#Pword").val()
+      },
+      type: "POST",
+      success: (data)=>{
+        window.location.replace($.host + "/waiting-for-game/")
+      },
+      error: (res, error)=>{
+        $("#invalid").html("Invalid Username/Password")
 
-          }
-        })
-      })
-
-
-      $("#create").click(()=>{
-        $.ajax({
-          url:$.host + "/account/",
-          data: {
-          Username:$("#Unamenew").val(),
-          Password:$("#Pwordnew").val(),
-          CPassword:$("#CPwordnew").val()
-        },
-          type: "POST",
-          success: (data)=>{
-            $("#accountmade").html("Account made!")
-          },
-          error: (res, error)=>{
-            console.log(error)
-            console.log(res)
-            $("#creationerror").html("Error: " + res.responseJSON.message)
-          }
-        })
-      })
-
-      onkeyup = ()=>{
-        let a = $("#Pwordnew").val()
-        let b = $("#CPwordnew").val()
-        let c = $("#Unamenew").val()
-        console.log(a)
-        console.log(b)
-        console.log(c)
-        if(a !== b && typeof a !== "undefined"){
-          $("#asym").css("display", "block")
-        }else{
-          $("#asym").css("display", "none")
-        }
-        if(c.length >15 && typeof c !== "undefined"){
-          $("#userlen").css("display", "block")
-        }else{
-          $("#userlen").css("display", "none")
-        }
       }
+    })
+  })
 
-      $("#loginscrn").click(()=>{
-        $("#new").css("display", "none")
-      })
 
-      $("#accountcreate").click(()=>{
-        $("#new").css("display", "block")
-      })
+  $("#create").click(()=>{
+    $.ajax({
+      url:$.host + "/account/",
+      data: {
+        Username:$("#Unamenew").val(),
+        Password:$("#Pwordnew").val(),
+        CPassword:$("#CPwordnew").val()
+      },
+      type: "POST",
+      success: (data)=>{
+        $("#accountmade").html("Account made!")
+      },
+      error: (res, error)=>{
+        console.log(error)
+        console.log(res)
+        $("#creationerror").html("Error: " + res.responseJSON.message)
+      }
+    })
+  })
 
+  onkeyup = ()=>{
+    let a = $("#Pwordnew").val()
+    let b = $("#CPwordnew").val()
+    let c = $("#Unamenew").val()
+    console.log(a)
+    console.log(b)
+    console.log(c)
+    if(a !== b && typeof a !== "undefined"){
+      $("#asym").css("display", "block")
+    }else{
       $("#asym").css("display", "none")
+    }
+    if(c.length >15 && typeof c !== "undefined"){
+      $("#userlen").css("display", "block")
+    }else{
       $("#userlen").css("display", "none")
+    }
+  }
 
-    </script>
+  $("#loginscrn").click(()=>{
+    $("#new").css("display", "none")
+  })
 
-  </body>
+  $("#accountcreate").click(()=>{
+    $("#new").css("display", "block")
+  })
+
+  $("#asym").css("display", "none")
+  $("#userlen").css("display", "none")
+
+  </script>
+
+</body>
 </html>

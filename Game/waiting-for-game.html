@@ -94,6 +94,42 @@
     top: 10%;
   }
 
+  #plot{
+    display: none;
+    position: absolute;
+    left: 15%;
+    top: 15%;
+    background-color: darkblue;
+    width: 70%;
+    height: 70%;
+  }
+
+  #plotbut{
+    display: inline-block;
+    position: absolute;
+    right: 25%;
+    height: 80%;
+    width: 10%;
+    top: 10%;
+  }
+
+  img{
+    position: absolute;
+    display: block;
+    width: 70%;
+    height: 70%;
+    top: 15%;
+    left: 15%;
+  }
+
+  #summr{
+    display: inline-block;
+    position: absolute;
+    left:15%;
+    width: 70%;
+    color: white;
+
+  }
   </style>
 </head>
 <body>
@@ -101,10 +137,12 @@
     <source src="/Sounds/[ FREE USE ] - Sappheiros - Home [ Creative Commons, Chill ] [No Copyright Sound].mp3" type="audio/mp3">
     </audio>
 
-  <div id="topbar"><span id="UN"></span><button id="refresh" onclick = "refresh()"> refresh</button> <button id="wfgbut" onclick="wfgadd()">Look for a Game</button></div>
-  <div id="queue">
+  <div id="topbar"><span id="UN"></span><button id="refresh" onclick = "refresh()"> refresh</button> <button id="plotbut"> Plot</button> <button id="wfgbut" onclick="wfgadd()">Look for a Game</button></div>
+  <div id="queue"></div>
+  <div id="plot">
+    <p id="summr">Kill your brother in gladitorial combat as you compete to become the KING OF MAGES!</p>
+  <img src="https://www.barraques.cat/pngfile/big/12-121125_images-magic-fantasy-sorcery-mages-fighting.jpg"/>
   </div>
-
   <script>
   $.host = "http://" + window.location.host;
   let cookiefinder = (cookname) =>{
@@ -184,7 +222,6 @@
             p2pid: $.id
           },
           success: (data)=>{
-            alert("FAILED")
             refresh()
 
           }
@@ -259,6 +296,16 @@
 
       }
 
+      let either = true;
+      $("#plotbut").click(()=>{
+        if(either){
+          $("#plot").css("display", "block")
+          either = false;
+        }else{
+          $("#plot").css("display", "none")
+          either = true;
+        }
+      })
       refresh();
       </script>
       </body>

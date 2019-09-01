@@ -44,6 +44,15 @@
     width: 100%;
     height: 100%;
   }
+
+  #res{
+    position: fixed;
+    font-size: 1000%;
+    width: 50%;
+    height: 50%;
+    left: 25%;
+    top:25%;
+  }
   </style>
 </head>
 <body>
@@ -53,10 +62,12 @@
     <source src="/Sounds/Super Mario Odyssey Jump Up, Super Star!.mp3" type="audio/mp3">
     </audio>
 
+    <div id="res"></div>
+
 
     <canvas id="renderCanvas"></canvas>
     <script>
-    
+
     $.host = "http://" + window.location.host;
     let spellcatalog = {"fireballs":{"total": 0, "number": 0}};
     console.log(spellcatalog.fireballs.number)
@@ -151,62 +162,62 @@
     $.get($.host + "/loading", (data,status)=>{
       console.log(data)
     })
-  peer.on('open', (id)=>{
-    $.myid = id;
-    console.log($.myid)
-    $.ajax({
-      url:$.host + "/p2pid",
-      data: {
-        Username: cookiefinder("DuelingMagesSOCOOLVERYHOTWOWIEWOWOMGGOD1LOLOLOOLOUN"),
-        p2pid: $.myid
-    },
-    type: "POST",
-    success: (data)=>{
-      console.log("STARTING")
+    peer.on('open', (id)=>{
+      $.myid = id;
+      console.log($.myid)
+      $.ajax({
+        url:$.host + "/p2pid",
+        data: {
+          Username: cookiefinder("DuelingMagesSOCOOLVERYHOTWOWIEWOWOMGGOD1LOLOLOOLOUN"),
+          p2pid: $.myid
+        },
+        type: "POST",
+        success: (data)=>{
+          console.log("STARTING")
 
-    }
-  })
-  })
+        }
+      })
+    })
     peer.on("connection", (conn)=>{
-        peerconnected = peer.connect(conn.peer)
+      peerconnected = peer.connect(conn.peer)
       console.log("start")
       lock = true;
       $("#load").css("display", "none")
-            conn.on("open", ()=>{
-      conn.on("data", (data)=>{
-        // console.log("CONNECTED")
-        // console.log(data)
-        // let readable = JSON.parse(data);
-        sphere.position.x = data.Oplayer.pos.x;
-        sphere.position.y = data.Oplayer.pos.y;
-        sphere.position.z = data.Oplayer.pos.z;
+      conn.on("open", ()=>{
+        conn.on("data", (data)=>{
+          // console.log("CONNECTED")
+          // console.log(data)
+          // let readable = JSON.parse(data);
+          sphere.position.x = data.Oplayer.pos.x;
+          sphere.position.y = data.Oplayer.pos.y;
+          sphere.position.z = data.Oplayer.pos.z;
 
-        sphere.rotationQuaternion.x = data.Oplayer.rot.x;
-        sphere.rotationQuaternion.y = data.Oplayer.rot.y;
-        sphere.rotationQuaternion.z = data.Oplayer.rot.z;
-        sphere.rotationQuaternion.w = data.Oplayer.rot.w;
+          sphere.rotationQuaternion.x = data.Oplayer.rot.x;
+          sphere.rotationQuaternion.y = data.Oplayer.rot.y;
+          sphere.rotationQuaternion.z = data.Oplayer.rot.z;
+          sphere.rotationQuaternion.w = data.Oplayer.rot.w;
 
-        for(let y = 0; y < phireballs.length;y++){
-          if(data.fireball[y] && phireballs[y]){
-            phireballs[y].position.x = data.fireball[y].x;
-            phireballs[y].position.y = data.fireball[y].y;
-            phireballs[y].position.z = data.fireball[y].z;
-          }else if(data.fireball[y] && phireballs[y] == false){
-            phireballs[y] = BABYLON.MeshBuilder.CreateSphere("fireball", {diameter: 1, segments: 16}, scene);
-            let red = new BABYLON.StandardMaterial(scene);
-            red.alpha = 1;
-            red.diffuseColor = new BABYLON.Color3(1, 0, 0);
-            phireballs.material = red;
-          }else if(data.fireball[y] == false && phireballs[y]){
-            phireballs[y].dispose()
-            phireballs[y] = data.fireball[y];
+          for(let y = 0; y < phireballs.length;y++){
+            if(data.fireball[y] && phireballs[y]){
+              phireballs[y].position.x = data.fireball[y].x;
+              phireballs[y].position.y = data.fireball[y].y;
+              phireballs[y].position.z = data.fireball[y].z;
+            }else if(data.fireball[y] && phireballs[y] == false){
+              phireballs[y] = BABYLON.MeshBuilder.CreateSphere("fireball", {diameter: 1, segments: 16}, scene);
+              let red = new BABYLON.StandardMaterial(scene);
+              red.alpha = 1;
+              red.diffuseColor = new BABYLON.Color3(1, 0, 0);
+              phireballs.material = red;
+            }else if(data.fireball[y] == false && phireballs[y]){
+              phireballs[y].dispose()
+              phireballs[y] = data.fireball[y];
+            }
           }
-        }
 
-        health = data.health
+          health = data.health
 
+        })
       })
-    })
     })
 
 
@@ -230,6 +241,9 @@
 
       // Default intensity is 1. Let's dim the light a small amount
       light.intensity = 0.7;
+
+      let music = new BABYLON.Sound("Music", "/Sounds/Dragon Ball Super Ultra Instinct Ka Ka Kachi Daze Goku vs Jiren Fight Song.mp3", scene, ()=>{music.play}, { loop: true, autoplay: true });
+      let firesound = new BABYLON.Sound("Music", "/Sounds/FireIgnite.mp3", scene, ()=>{music.play}, { loop: false, autoplay: false });
 
       // Our built-in 'sphere' shape.
       sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 2, segments: 32}, scene);
@@ -352,257 +366,264 @@
 
       scene.registerBeforeRender(()=>{
         if(lock){
-        //key stuff
-        onkeydown = onkeyup = function(e){
-          e = e || event;
-          map[e.keyCode] = e.type == 'keydown';
-          let axis = new BABYLON.Vector3(0, 1, 0);
-          let theta;
-          let quaternion;
-          let flip;
-          let vcheck=0;
-          let hcheck = 0;
-          console.log(map)
-          console.log(sphere2.position.x+'X')
-          console.log(sphere2.position.z+'Y')
+          //key stuff
+          onkeydown = onkeyup = function(e){
+            e = e || event;
+            map[e.keyCode] = e.type == 'keydown';
+            let axis = new BABYLON.Vector3(0, 1, 0);
+            let theta;
+            let quaternion;
+            let flip;
+            let vcheck=0;
+            let hcheck = 0;
+            console.log(map)
+            console.log(sphere2.position.x+'X')
+            console.log(sphere2.position.z+'Y')
 
-          //vertical
-          if(map["87"]){
-            theta = Math.PI/2;
-            quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
-            sphere2.rotationQuaternion = quaternion;
-            // zero
-            flip = sphere2.physicsImpostor.getLinearVelocity().z *-1
-            sphere2.physicsImpostor.applyImpulse(new BABYLON.Vector3(0,0,flip), sphere2.getAbsolutePosition())
-            //move
-            sphere2.physicsImpostor.applyImpulse(new BABYLON.Vector3(0,0,-8), sphere2.getAbsolutePosition())
-            direct = "PX"
-          }else if (map["83"]) {
-            theta = Math.PI/2*3;
-            quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
-            sphere2.rotationQuaternion = quaternion;
-            // zero
-            flip = sphere2.physicsImpostor.getLinearVelocity().z *-1
-            sphere2.physicsImpostor.applyImpulse(new BABYLON.Vector3(0,0,flip), sphere2.getAbsolutePosition())
-            //move
-            sphere2.physicsImpostor.applyImpulse(new BABYLON.Vector3(0,0,8), sphere2.getAbsolutePosition())
-            direct = "MX"
-          }else{
-            vcheck +=1;
-          }
-
-          //horizontal
-          if (map["65"]) {
-            theta = Math.PI*2;
-            quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
-            sphere2.rotationQuaternion = quaternion;
-            // zero
-            flip = sphere2.physicsImpostor.getLinearVelocity().x *-1
-            sphere2.physicsImpostor.applyImpulse(new BABYLON.Vector3(flip,0,0), sphere2.getAbsolutePosition())
-            //move
-            sphere2.physicsImpostor.applyImpulse(new BABYLON.Vector3(8,0,0), sphere2.getAbsolutePosition())
-            direct = "PY"
-          }else if (map["68"]) {
-            theta = Math.PI;
-            quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
-            sphere2.rotationQuaternion = quaternion;
-            // zero
-            flip = sphere2.physicsImpostor.getLinearVelocity().x *-1
-            sphere2.physicsImpostor.applyImpulse(new BABYLON.Vector3(flip,0,0), sphere2.getAbsolutePosition())
-            //move
-            sphere2.physicsImpostor.applyImpulse(new BABYLON.Vector3(-8,0,0), sphere2.getAbsolutePosition())
-            direct = "MY"
-          }else{
-            hcheck +=1;
-          }
-
-          //diagnal sight
-          if(map["65"] && map["87"]){
-            theta = Math.PI / 4;
-            quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
-            sphere2.rotationQuaternion = quaternion;
-            direct = "PXPY"
-
-          }else if(map["68"] && map["87"]){
-            theta = Math.PI / 4 * 3;
-            quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
-            sphere2.rotationQuaternion = quaternion;
-            direct = "PXMY"
-
-          }else if(map["65"] && map["83"]){
-            theta = Math.PI/ 4 * 7;
-            quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
-            sphere2.rotationQuaternion = quaternion;
-            direct = "MXPY"
-
-          }else if(map["68"] && map["83"]){
-            theta = Math.PI/ 4 * 5;
-            quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
-            sphere2.rotationQuaternion = quaternion;
-            direct = "MXMY"
-          }
-
-          //spell
-          //check that kidden isn't in a wall TOD0
-          if(map["32"]){
-            if(atktimer == false){
-              fireball(direct, scene, kidden2)
-              atktimer = true;
-              setTimeout(()=>{
-                atktimer = false;
-              }, 200)
-            }
-          }
-
-
-
-          //stop movement if no input
-          if(vcheck){
-            flip = sphere2.physicsImpostor.getLinearVelocity().z *-1
-            sphere2.physicsImpostor.applyImpulse(new BABYLON.Vector3(0,0,flip), sphere2.getAbsolutePosition())
-          }
-          if(hcheck){
-            flip = sphere2.physicsImpostor.getLinearVelocity().x *-1
-            sphere2.physicsImpostor.applyImpulse(new BABYLON.Vector3(flip,0,0), sphere2.getAbsolutePosition())
-          }
-        }
-        sphere2.physicsImpostor.setAngularVelocity(new BABYLON.Quaternion(0, 1, 0, 0));
-        sphere2.physicsImpostor.setAngularVelocity(new BABYLON.Quaternion(0, 0, 1, 0));
-        sphere2.physicsImpostor.setAngularVelocity(new BABYLON.Quaternion(0, 0, 0, 1));
-        sphere2.position.y = 2;
-
-        //camera follow
-        camera.position.x = sphere2.position.x;
-        camera.position.z = sphere2.position.z;
-
-
-
-        for(let zed = 0; zed < fireballs.length; zed++){
-          if(fireballs[zed]){
-            console.log(1)
-            // for(let exe = 0; exe < walls.length; exe++){
-            if(fireballs[zed].intersectsMesh(walls[0], true)){
-              fireballs[zed].dispose();
-              fireballs[zed] = 0;
-              spellcatalog["fireballs"]["number"] -=1;
-            }
-            // }
-          }
-        }
-
-        for(let zed = 0; zed < fireballs.length; zed++){
-          if(fireballs[zed]){
-            console.log(1)
-            // for(let exe = 0; exe < walls.length; exe++){
-            if(fireballs[zed].intersectsMesh(walls[1], true)){
-              fireballs[zed].dispose();
-              fireballs[zed] = 0;
-              spellcatalog["fireballs"]["number"] -=1;
-            }
-            // }
-          }
-        }
-
-        for(let zed = 0; zed < fireballs.length; zed++){
-          if(fireballs[zed]){
-            console.log(1)
-            // for(let exe = 0; exe < walls.length; exe++){
-            if(fireballs[zed].intersectsMesh(walls[2], true)){
-              fireballs[zed].dispose();
-              fireballs[zed] = 0;
-              spellcatalog["fireballs"]["number"] -=1;
-            }
-            // }
-          }
-        }
-
-        for(let zed = 0; zed < fireballs.length; zed++){
-          if(fireballs[zed]){
-            console.log(1)
-            // for(let exe = 0; exe < walls.length; exe++){
-            if(fireballs[zed].intersectsMesh(walls[3], true)){
-              fireballs[zed].dispose();
-              fireballs[zed] = 0;
-              spellcatalog["fireballs"]["number"] -=1;
-            }
-            // }
-          }
-        }
-
-        for(let zed = 0; zed < fireballs.length; zed++){
-          if(fireballs[zed]){
-            console.log(1)
-            // for(let exe = 0; exe < walls.length; exe++){
-            if(fireballs[zed].intersectsMesh(walls[4], true)){
-              fireballs[zed].dispose();
-              fireballs[zed] = 0;
-              spellcatalog["fireballs"]["number"] -=1;
-            }
-            // }
-          }
-        }
-
-        for(let zed = 0; zed < fireballs.length; zed++){
-          if(fireballs[zed]){
-            console.log(1)
-            // for(let exe = 0; exe < walls.length; exe++){
-            if(fireballs[zed].intersectsMesh(walls[5], true)){
-              fireballs[zed].dispose();
-              fireballs[zed] = 0;
-              spellcatalog["fireballs"]["number"] -=1;
-            }
-            // }
-          }
-        }
-
-        for(let zed = 0; zed < fireballs.length; zed++){
-          if(fireballs[zed]){
-            console.log(1)
-            // for(let exe = 0; exe < walls.length; exe++){
-            if(fireballs[zed].intersectsMesh(sphere, true)){
-              fireballs[zed].dispose();
-              fireballs[zed] = 0;
-              if(Math.round(Math.random()*100) >  90){
-                senddata.health -= 2;
-              }else{
-              senddata.health -= 1;
-              }
-              spellcatalog["fireballs"]["number"] -=1;
-            }
-            // }
-          }
-        }
-
-        sphere.physicsImpostor.setLinearVelocity(nospeed)
-
-        if(typeof sphere2 !== "undefined"){
-          senddata.Oplayer.pos.x = sphere2.position.x;
-          senddata.Oplayer.pos.y = sphere2.position.y;
-          senddata.Oplayer.pos.z = sphere2.position.z;
-          senddata.Oplayer.rot.x = sphere2.rotationQuaternion.x;
-          senddata.Oplayer.rot.y = sphere2.rotationQuaternion.y;
-          senddata.Oplayer.rot.z = sphere2.rotationQuaternion.z;
-          senddata.Oplayer.rot.w = sphere2.rotationQuaternion.w;
-          for(let x = 0;x < fireballs.length;x++){
-            if(fireballs[x] !== 0){
-              let phire = fireballs[x].position;
-              senddata.fireball[x] = {"x": phire.x, "y": phire.y, "z": phire.z}
+            //vertical
+            if(map["87"]){
+              theta = Math.PI/2;
+              quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
+              sphere2.rotationQuaternion = quaternion;
+              // zero
+              flip = sphere2.physicsImpostor.getLinearVelocity().z *-1
+              sphere2.physicsImpostor.applyImpulse(new BABYLON.Vector3(0,0,flip), sphere2.getAbsolutePosition())
+              //move
+              sphere2.physicsImpostor.applyImpulse(new BABYLON.Vector3(0,0,-8), sphere2.getAbsolutePosition())
+              direct = "PX"
+            }else if (map["83"]) {
+              theta = Math.PI/2*3;
+              quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
+              sphere2.rotationQuaternion = quaternion;
+              // zero
+              flip = sphere2.physicsImpostor.getLinearVelocity().z *-1
+              sphere2.physicsImpostor.applyImpulse(new BABYLON.Vector3(0,0,flip), sphere2.getAbsolutePosition())
+              //move
+              sphere2.physicsImpostor.applyImpulse(new BABYLON.Vector3(0,0,8), sphere2.getAbsolutePosition())
+              direct = "MX"
             }else{
-              senddata.fireball[x] = 0
+              vcheck +=1;
+            }
+
+            //horizontal
+            if (map["65"]) {
+              theta = Math.PI*2;
+              quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
+              sphere2.rotationQuaternion = quaternion;
+              // zero
+              flip = sphere2.physicsImpostor.getLinearVelocity().x *-1
+              sphere2.physicsImpostor.applyImpulse(new BABYLON.Vector3(flip,0,0), sphere2.getAbsolutePosition())
+              //move
+              sphere2.physicsImpostor.applyImpulse(new BABYLON.Vector3(8,0,0), sphere2.getAbsolutePosition())
+              direct = "PY"
+            }else if (map["68"]) {
+              theta = Math.PI;
+              quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
+              sphere2.rotationQuaternion = quaternion;
+              // zero
+              flip = sphere2.physicsImpostor.getLinearVelocity().x *-1
+              sphere2.physicsImpostor.applyImpulse(new BABYLON.Vector3(flip,0,0), sphere2.getAbsolutePosition())
+              //move
+              sphere2.physicsImpostor.applyImpulse(new BABYLON.Vector3(-8,0,0), sphere2.getAbsolutePosition())
+              direct = "MY"
+            }else{
+              hcheck +=1;
+            }
+
+            //diagnal sight
+            if(map["65"] && map["87"]){
+              theta = Math.PI / 4;
+              quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
+              sphere2.rotationQuaternion = quaternion;
+              direct = "PXPY"
+
+            }else if(map["68"] && map["87"]){
+              theta = Math.PI / 4 * 3;
+              quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
+              sphere2.rotationQuaternion = quaternion;
+              direct = "PXMY"
+
+            }else if(map["65"] && map["83"]){
+              theta = Math.PI/ 4 * 7;
+              quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
+              sphere2.rotationQuaternion = quaternion;
+              direct = "MXPY"
+
+            }else if(map["68"] && map["83"]){
+              theta = Math.PI/ 4 * 5;
+              quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
+              sphere2.rotationQuaternion = quaternion;
+              direct = "MXMY"
+            }
+
+            //spell
+            //check that kidden isn't in a wall TOD0
+            if(map["32"]){
+              if(atktimer == false){
+                fireball(direct, scene, kidden2)
+                atktimer = true;
+                firesound.play()
+                setTimeout(()=>{
+                  atktimer = false;
+                }, 200)
+              }
+            }
+
+
+
+            //stop movement if no input
+            if(vcheck){
+              flip = sphere2.physicsImpostor.getLinearVelocity().z *-1
+              sphere2.physicsImpostor.applyImpulse(new BABYLON.Vector3(0,0,flip), sphere2.getAbsolutePosition())
+            }
+            if(hcheck){
+              flip = sphere2.physicsImpostor.getLinearVelocity().x *-1
+              sphere2.physicsImpostor.applyImpulse(new BABYLON.Vector3(flip,0,0), sphere2.getAbsolutePosition())
             }
           }
-          peerconnected.send(senddata)
-        }
+          sphere2.physicsImpostor.setAngularVelocity(new BABYLON.Quaternion(0, 1, 0, 0));
+          sphere2.physicsImpostor.setAngularVelocity(new BABYLON.Quaternion(0, 0, 1, 0));
+          sphere2.physicsImpostor.setAngularVelocity(new BABYLON.Quaternion(0, 0, 0, 1));
+          sphere2.position.y = 2;
 
-        if(health <= 0){
-          alert("LOSE")
-        }
+          //camera follow
+          camera.position.x = sphere2.position.x;
+          camera.position.z = sphere2.position.z;
 
-        if(senddata.health <= 0){
-          alert("WIN")
+
+
+          for(let zed = 0; zed < fireballs.length; zed++){
+            if(fireballs[zed]){
+              console.log(1)
+              // for(let exe = 0; exe < walls.length; exe++){
+              if(fireballs[zed].intersectsMesh(walls[0], true)){
+                fireballs[zed].dispose();
+                fireballs[zed] = 0;
+                spellcatalog["fireballs"]["number"] -=1;
+              }
+              // }
+            }
+          }
+
+          for(let zed = 0; zed < fireballs.length; zed++){
+            if(fireballs[zed]){
+              console.log(1)
+              // for(let exe = 0; exe < walls.length; exe++){
+              if(fireballs[zed].intersectsMesh(walls[1], true)){
+                fireballs[zed].dispose();
+                fireballs[zed] = 0;
+                spellcatalog["fireballs"]["number"] -=1;
+              }
+              // }
+            }
+          }
+
+          for(let zed = 0; zed < fireballs.length; zed++){
+            if(fireballs[zed]){
+              console.log(1)
+              // for(let exe = 0; exe < walls.length; exe++){
+              if(fireballs[zed].intersectsMesh(walls[2], true)){
+                fireballs[zed].dispose();
+                fireballs[zed] = 0;
+                spellcatalog["fireballs"]["number"] -=1;
+              }
+              // }
+            }
+          }
+
+          for(let zed = 0; zed < fireballs.length; zed++){
+            if(fireballs[zed]){
+              console.log(1)
+              // for(let exe = 0; exe < walls.length; exe++){
+              if(fireballs[zed].intersectsMesh(walls[3], true)){
+                fireballs[zed].dispose();
+                fireballs[zed] = 0;
+                spellcatalog["fireballs"]["number"] -=1;
+              }
+              // }
+            }
+          }
+
+          for(let zed = 0; zed < fireballs.length; zed++){
+            if(fireballs[zed]){
+              console.log(1)
+              // for(let exe = 0; exe < walls.length; exe++){
+              if(fireballs[zed].intersectsMesh(walls[4], true)){
+                fireballs[zed].dispose();
+                fireballs[zed] = 0;
+                spellcatalog["fireballs"]["number"] -=1;
+              }
+              // }
+            }
+          }
+
+          for(let zed = 0; zed < fireballs.length; zed++){
+            if(fireballs[zed]){
+              console.log(1)
+              // for(let exe = 0; exe < walls.length; exe++){
+              if(fireballs[zed].intersectsMesh(walls[5], true)){
+                fireballs[zed].dispose();
+                fireballs[zed] = 0;
+                spellcatalog["fireballs"]["number"] -=1;
+              }
+              // }
+            }
+          }
+
+          for(let zed = 0; zed < fireballs.length; zed++){
+            if(fireballs[zed]){
+              console.log(1)
+              // for(let exe = 0; exe < walls.length; exe++){
+              if(fireballs[zed].intersectsMesh(sphere, true)){
+                fireballs[zed].dispose();
+                fireballs[zed] = 0;
+                if(Math.round(Math.random()*100) >  90){
+                  senddata.health -= 2;
+                }else{
+                  senddata.health -= 1;
+                }
+                spellcatalog["fireballs"]["number"] -=1;
+              }
+              // }
+            }
+          }
+
+          sphere.physicsImpostor.setLinearVelocity(nospeed)
+
+          if(typeof sphere2 !== "undefined"){
+            senddata.Oplayer.pos.x = sphere2.position.x;
+            senddata.Oplayer.pos.y = sphere2.position.y;
+            senddata.Oplayer.pos.z = sphere2.position.z;
+            senddata.Oplayer.rot.x = sphere2.rotationQuaternion.x;
+            senddata.Oplayer.rot.y = sphere2.rotationQuaternion.y;
+            senddata.Oplayer.rot.z = sphere2.rotationQuaternion.z;
+            senddata.Oplayer.rot.w = sphere2.rotationQuaternion.w;
+            for(let x = 0;x < fireballs.length;x++){
+              if(fireballs[x] !== 0){
+                let phire = fireballs[x].position;
+                senddata.fireball[x] = {"x": phire.x, "y": phire.y, "z": phire.z}
+              }else{
+                senddata.fireball[x] = 0
+              }
+            }
+            peerconnected.send(senddata)
+          }
+
+          if(health <= 0){
+            $("#res").html("LOSE")
+            setTimeout(()=>{
+              window.location.replace($.host + "/waiting-for-game/");
+            },10000)
+          }
+
+          if(senddata.health <= 0){
+            $("#res").html("WIN")
+            setTimeout(()=>{
+              window.location.replace($.host + "/waiting-for-game/");
+            },10000)
+          }
+          // sphere.physicsImpostor.setLinearVelocity(0,0,0)
         }
-        // sphere.physicsImpostor.setLinearVelocity(0,0,0)
-      }
 
       })
 
@@ -689,26 +710,26 @@
       for(let x=0;x < cookies.length;x++){
         if(x == 0){
           copy = cookies[x].substr(0,name.length)
-          }else{
-            copy = cookies[x].substr(1,name.length)
-            }
+        }else{
+          copy = cookies[x].substr(1,name.length)
+        }
         console.log(copy)
         if(name === copy){
           return cookies[x].substr(name.length + 1,cookies[x].length - 1)
         }
       }
-}
+    }
 
-// let call = ()=>{
-//   // senddata[0] = fireballs;
-//   senddata[1] = {"pos": sphere2.position, "rot": sphere2.rotation};
-//   peerconnected.send(senddata)
-// }
+    // let call = ()=>{
+    //   // senddata[0] = fireballs;
+    //   senddata[1] = {"pos": sphere2.position, "rot": sphere2.rotation};
+    //   peerconnected.send(senddata)
+    // }
 
-window.onbeforeunload = () =>{
-  peer.destroy()
-  $.get($.host + "/p2pdeleted", (data, status)=>{})
-}
+    window.onbeforeunload = () =>{
+      peer.destroy()
+      $.get($.host + "/p2pdeleted", (data, status)=>{})
+    }
 
     </script>
   </body>
