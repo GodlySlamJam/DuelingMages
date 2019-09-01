@@ -58,662 +58,662 @@
 <body>
   <img id="load"src="/Images/loading.gif"/>
   <!-- <audio autoplay loop style="display:none;">
-    <source src="/Sounds/Super Mario Odyssey Jump Up, Super Star!.mp3" type="audio/mp3">
-    </audio> -->
+  <source src="/Sounds/Super Mario Odyssey Jump Up, Super Star!.mp3" type="audio/mp3">
+</audio> -->
 
-    <div id="res"></div>
+<div id="res"></div>
 
 
-    <canvas id="renderCanvas"></canvas>
-    <script>
+<canvas id="renderCanvas"></canvas>
+<script>
 
-    $.host = "http://" + window.location.host;
-    let spellcatalog = {"fireballs":{"total": 0, "number": 0}};
-    let lock = false;
-    let objectpos = [{"Object": "wall", "X": 0, "Y": 0 },
-    {"Object": "wall", "X": 5, "Y": 0 },
-    {"Object": "wall", "X": 10, "Y": 0 },
-    {"Object": "wall", "X": 15, "Y": 0 },
-    {"Object": "wall", "X": 20, "Y": 0 },
-    {"Object": "wall", "X": 25, "Y": 0 },
-    {"Object": "wall", "X": 30, "Y": 0 },
-    {"Object": "wall", "X": 35, "Y": 0 },
-    {"Object": "wall", "X": 40, "Y": 0 },
-    {"Object": "wall", "X": 45, "Y": 0 },
-    {"Object": "wall", "X": 50, "Y": 0 },
-    {"Object": "wall", "X": 55, "Y": 0 },
-    {"Object": "wall", "X": 55, "Y": 5},
-    {"Object": "wall", "X": 55, "Y": 10 },
-    {"Object": "wall", "X": 55, "Y": 15 },
-    {"Object": "wall", "X": 55, "Y": 20 },
-    {"Object": "wall", "X": 55, "Y": 25 },
-    {"Object": "wall", "X": 55, "Y": 30 },
-    {"Object": "wall", "X": 55, "Y": 35 },
-    {"Object": "wall", "X": 55, "Y": 40 },
-    {"Object": "wall", "X": 55, "Y": 45 },
-    {"Object": "wall", "X": 55, "Y": 50 },
-    {"Object": "wall", "X": 55, "Y": 55 },
-    {"Object": "wall", "X": 55, "Y": 60 },
-    {"Object": "wall", "X": 55, "Y": 65 },
-    {"Object": "wall", "X": 55, "Y": 70 },
-    {"Object": "wall", "X": 55, "Y": 75 },
-    {"Object": "wall", "X": 55, "Y": 80 },
-    {"Object": "wall", "X": 55, "Y": 85 },
-    {"Object": "wall", "X": 55, "Y": 90 },
-    {"Object": "wall", "X": 55, "Y": 95 },
-    {"Object": "wall", "X": 50, "Y": 95 },
-    {"Object": "wall", "X": 45, "Y": 95 },
-    {"Object": "wall", "X": 0, "Y": 5 },
-    {"Object": "wall", "X": 0, "Y": 10 },
-    {"Object": "wall", "X": 0, "Y": 15 },
-    {"Object": "wall", "X": 0, "Y": 20 },
-    {"Object": "wall", "X": 0, "Y": 25 },
-    {"Object": "wall", "X": 0, "Y": 30 },
-    {"Object": "wall", "X": 0, "Y": 35 },
-    {"Object": "wall", "X": 0, "Y": 40 },
-    {"Object": "wall", "X": 0, "Y": 45 },
-    {"Object": "wall", "X": 0, "Y": 50 },
-    {"Object": "wall", "X": 0, "Y": 55 },
-    {"Object": "wall", "X": 0, "Y": 60 },
-    {"Object": "wall", "X": 0, "Y": 65 },
-    {"Object": "wall", "X": 0, "Y": 70 },
-    {"Object": "wall", "X": 0, "Y": 75 },
-    {"Object": "wall", "X": 0, "Y": 80 },
-    {"Object": "wall", "X": 0, "Y": 85 },
-    {"Object": "wall", "X": 0, "Y": 90 },
-    {"Object": "wall", "X": 0, "Y": 95 },
-    {"Object": "wall", "X": 5, "Y": 95 },
-    {"Object": "wall", "X": 10, "Y": 95 },
-    {"Object": "wall", "X": 15, "Y": 95 },
-    {"Object": "wall", "X": 20, "Y": 95 },
-    {"Object": "wall", "X": 25, "Y": 95 },
-    {"Object": "wall", "X": 30, "Y": 95 },
-    {"Object": "wall", "X": 35, "Y": 95},
-    {"Object": "wall", "X": 40, "Y": 95 },
-    {"Object": "wall", "X": 25, "Y": 19 },
-    {"Object": "wall", "X": 30, "Y": 19 },
-    {"Object": "wall", "X": 25, "Y": 72 },
-    {"Object": "wall", "X": 30, "Y": 72 }]
+$.host = "http://" + window.location.host;
+let spellcatalog = {"fireballs":{"total": 0, "number": 0}};
+let lock = false;
+let objectpos = [{"Object": "wall", "X": 0, "Y": 0 },
+{"Object": "wall", "X": 5, "Y": 0 },
+{"Object": "wall", "X": 10, "Y": 0 },
+{"Object": "wall", "X": 15, "Y": 0 },
+{"Object": "wall", "X": 20, "Y": 0 },
+{"Object": "wall", "X": 25, "Y": 0 },
+{"Object": "wall", "X": 30, "Y": 0 },
+{"Object": "wall", "X": 35, "Y": 0 },
+{"Object": "wall", "X": 40, "Y": 0 },
+{"Object": "wall", "X": 45, "Y": 0 },
+{"Object": "wall", "X": 50, "Y": 0 },
+{"Object": "wall", "X": 55, "Y": 0 },
+{"Object": "wall", "X": 55, "Y": 5},
+{"Object": "wall", "X": 55, "Y": 10 },
+{"Object": "wall", "X": 55, "Y": 15 },
+{"Object": "wall", "X": 55, "Y": 20 },
+{"Object": "wall", "X": 55, "Y": 25 },
+{"Object": "wall", "X": 55, "Y": 30 },
+{"Object": "wall", "X": 55, "Y": 35 },
+{"Object": "wall", "X": 55, "Y": 40 },
+{"Object": "wall", "X": 55, "Y": 45 },
+{"Object": "wall", "X": 55, "Y": 50 },
+{"Object": "wall", "X": 55, "Y": 55 },
+{"Object": "wall", "X": 55, "Y": 60 },
+{"Object": "wall", "X": 55, "Y": 65 },
+{"Object": "wall", "X": 55, "Y": 70 },
+{"Object": "wall", "X": 55, "Y": 75 },
+{"Object": "wall", "X": 55, "Y": 80 },
+{"Object": "wall", "X": 55, "Y": 85 },
+{"Object": "wall", "X": 55, "Y": 90 },
+{"Object": "wall", "X": 55, "Y": 95 },
+{"Object": "wall", "X": 50, "Y": 95 },
+{"Object": "wall", "X": 45, "Y": 95 },
+{"Object": "wall", "X": 0, "Y": 5 },
+{"Object": "wall", "X": 0, "Y": 10 },
+{"Object": "wall", "X": 0, "Y": 15 },
+{"Object": "wall", "X": 0, "Y": 20 },
+{"Object": "wall", "X": 0, "Y": 25 },
+{"Object": "wall", "X": 0, "Y": 30 },
+{"Object": "wall", "X": 0, "Y": 35 },
+{"Object": "wall", "X": 0, "Y": 40 },
+{"Object": "wall", "X": 0, "Y": 45 },
+{"Object": "wall", "X": 0, "Y": 50 },
+{"Object": "wall", "X": 0, "Y": 55 },
+{"Object": "wall", "X": 0, "Y": 60 },
+{"Object": "wall", "X": 0, "Y": 65 },
+{"Object": "wall", "X": 0, "Y": 70 },
+{"Object": "wall", "X": 0, "Y": 75 },
+{"Object": "wall", "X": 0, "Y": 80 },
+{"Object": "wall", "X": 0, "Y": 85 },
+{"Object": "wall", "X": 0, "Y": 90 },
+{"Object": "wall", "X": 0, "Y": 95 },
+{"Object": "wall", "X": 5, "Y": 95 },
+{"Object": "wall", "X": 10, "Y": 95 },
+{"Object": "wall", "X": 15, "Y": 95 },
+{"Object": "wall", "X": 20, "Y": 95 },
+{"Object": "wall", "X": 25, "Y": 95 },
+{"Object": "wall", "X": 30, "Y": 95 },
+{"Object": "wall", "X": 35, "Y": 95},
+{"Object": "wall", "X": 40, "Y": 95 },
+{"Object": "wall", "X": 25, "Y": 19 },
+{"Object": "wall", "X": 30, "Y": 19 },
+{"Object": "wall", "X": 25, "Y": 72 },
+{"Object": "wall", "X": 30, "Y": 72 }]
 
-    let fireballs = [0,0,0,0,0,0,0,0];
-    let phireballs  = [0,0,0,0,0,0,0,0];
-    let walls = [];
-    let wallnum = 0;
-    let direct;
-    let map = {};
-    let atktimer = false;
-    let wall;
-    let biframe = false;
-    let nospeed = new BABYLON.Vector3(0,0,0)
-    let canvas = document.getElementById("renderCanvas");
-    let sphere2;
-    let sphere;
-    let scene;
-    // let peer = new Peer("pick-an-id", {key: cookiefinder("DuelingMagesSOCOOLVERYHOTWOWIEWOWOMGGOD1LOLOLOOLOp2pid")});
-    let peer = new Peer();
-    let myid;
-    let isconn = false;
-    let health = 3;
-    //first: fireball second: player
-    // let conndata = [0,0]
-    let senddata = {"fireball": [0,0,0,0,0,0,0,0], "Oplayer": {"pos": {"x": 30, "y":1, "z": 5}, "rot": {"x": 0, "y": Math.PI / 6, "z": 0, "w": 0}}, "health": 3}
-    let peerconnected;
-    peer.on('open', (id)=>{
-      myid = id;
-      console.log(id)
+let fireballs = [0,0,0,0,0,0,0,0];
+let phireballs  = [0,0,0,0,0,0,0,0];
+let walls = [];
+let wallnum = 0;
+let direct;
+let map = {};
+let atktimer = false;
+let wall;
+let biframe = false;
+let nospeed = new BABYLON.Vector3(0,0,0)
+let canvas = document.getElementById("renderCanvas");
+let sphere2;
+let sphere;
+let scene;
+// let peer = new Peer("pick-an-id", {key: cookiefinder("DuelingMagesSOCOOLVERYHOTWOWIEWOWOMGGOD1LOLOLOOLOp2pid")});
+let peer = new Peer();
+let myid;
+let isconn = false;
+let health = 3;
+//first: fireball second: player
+// let conndata = [0,0]
+let senddata = {"fireball": [0,0,0,0,0,0,0,0], "Oplayer": {"pos": {"x": 30, "y":1, "z": 5}, "rot": {"x": 0, "y": Math.PI / 6, "z": 0, "w": 0}}, "health": 3}
+let peerconnected;
+peer.on('open', (id)=>{
+  myid = id;
+  console.log(id)
+})
+var getpartner = setInterval(()=>{
+  console.log("getting")
+  callpartner()
+}, 1000)
+peer.on("connection", (conn)=>{
+  lock = true;
+  $("#load").css("display", "none")
+  conn.on("open", ()=>{
+    conn.on("data", (data)=>{
+      // console.log(data)
+
+      sphere2.position.x = data.Oplayer.pos.x;
+      sphere2.position.y = data.Oplayer.pos.y;
+      sphere2.position.z = data.Oplayer.pos.z;
+
+      sphere2.rotationQuaternion.x = data.Oplayer.rot.x;
+      sphere2.rotationQuaternion.y = data.Oplayer.rot.y;
+      sphere2.rotationQuaternion.z = data.Oplayer.rot.z;
+      sphere2.rotationQuaternion.w = data.Oplayer.rot.w;
+
+      for(let y = 0; y < phireballs.length;y++){
+        if(data.fireball[y] && phireballs[y]){
+          phireballs[y].position.x = data.fireball[y].x;
+          phireballs[y].position.y = data.fireball[y].y;
+          phireballs[y].position.z = data.fireball[y].z;
+        }else if(data.fireball[y] && phireballs[y] == false){
+          phireballs[y] = BABYLON.MeshBuilder.CreateSphere("fireball", {diameter: 1, segments: 16}, scene);
+          let red = new BABYLON.StandardMaterial(scene);
+          red.alpha = 1;
+          red.diffuseColor = new BABYLON.Color3(1, 0, 0);
+          phireballs.material = red;
+        }else if(data.fireball[y] == false && phireballs[y]){
+          phireballs[y].dispose()
+          phireballs[y] = data.fireball[y];
+        }
+      }
+      health = data.health
     })
-    var getpartner = setInterval(()=>{
-      console.log("getting")
-      callpartner()
-    }, 1000)
-    peer.on("connection", (conn)=>{
-      lock = true;
-      $("#load").css("display", "none")
-      conn.on("open", ()=>{
-        conn.on("data", (data)=>{
-          // console.log(data)
+  })
+})
 
-          sphere2.position.x = data.Oplayer.pos.x;
-          sphere2.position.y = data.Oplayer.pos.y;
-          sphere2.position.z = data.Oplayer.pos.z;
 
-          sphere2.rotationQuaternion.x = data.Oplayer.rot.x;
-          sphere2.rotationQuaternion.y = data.Oplayer.rot.y;
-          sphere2.rotationQuaternion.z = data.Oplayer.rot.z;
-          sphere2.rotationQuaternion.w = data.Oplayer.rot.w;
+let createScene = () => {
 
-          for(let y = 0; y < phireballs.length;y++){
-            if(data.fireball[y] && phireballs[y]){
-              phireballs[y].position.x = data.fireball[y].x;
-              phireballs[y].position.y = data.fireball[y].y;
-              phireballs[y].position.z = data.fireball[y].z;
-            }else if(data.fireball[y] && phireballs[y] == false){
-              phireballs[y] = BABYLON.MeshBuilder.CreateSphere("fireball", {diameter: 1, segments: 16}, scene);
-              let red = new BABYLON.StandardMaterial(scene);
-              red.alpha = 1;
-              red.diffuseColor = new BABYLON.Color3(1, 0, 0);
-              phireballs.material = red;
-            }else if(data.fireball[y] == false && phireballs[y]){
-              phireballs[y].dispose()
-              phireballs[y] = data.fireball[y];
-            }
+  // This creates a basic Babylon Scene object (non-mesh)
+  scene = new BABYLON.Scene(engine);
+
+  let gravity = new BABYLON.Vector3(0, 0, 0)
+  scene.enablePhysics(gravity, new BABYLON.OimoJSPlugin())
+
+  // This creates and positions a free camera (non-mesh)
+  let camera = new BABYLON.FollowCamera("camera1", new BABYLON.Vector3(0, 40, 0), scene);
+
+  // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
+  let light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
+
+  // Default intensity is 1. Let's dim the light a small amount
+  light.intensity = 0.7;
+
+  let music = new BABYLON.Sound("Music", "/Sounds/Dragon Ball Super Ultra Instinct Ka Ka Kachi Daze Goku vs Jiren Fight Song.mp3", scene, ()=>{music.play}, { loop: true, autoplay: true });
+  let firesound = new BABYLON.Sound("Music", "/Sounds/FireIgnite.mp3", scene, ()=>{music.play}, { loop: false, autoplay: false });
+  // Our built-in 'sphere' shape.
+  sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 2, segments: 32}, scene);
+  sphere.physicsImpostor = new BABYLON.PhysicsImpostor(sphere, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 1, friction: 0, restitution: 0}, scene);
+  sphere.checkCollisions = true;
+
+  let mat = new BABYLON.StandardMaterial(scene);
+  mat.alpha = 1;
+  mat.diffuseColor = new BABYLON.Color3(0, 0, 0);
+  sphere.material = mat;
+
+  sphere.rotation.y = Math.PI / 6;
+  sphere.position.x = -30;
+  sphere.position.z = 5;
+  sphere.position.y = 1;
+
+  camera.position.x = sphere.position.x;
+  camera.position.z = sphere.position.z;
+
+  let kidden = BABYLON.MeshBuilder.CreateBox("pointer", {height: 1}, scene);
+  kidden.parent=sphere;
+  kidden.position.y= 0;
+  kidden.position.x=1;
+  kidden.material = mat;
+
+  //player 2
+  sphere2 = BABYLON.MeshBuilder.CreateSphere("sphere2", {diameter: 2, segments: 32}, scene);
+  sphere2.physicsImpostor = new BABYLON.PhysicsImpostor(sphere2, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 1, friction: 0, restitution: 0}, scene);
+  sphere2.checkCollisions = true;
+
+  let mat2 = new BABYLON.StandardMaterial(scene);
+  mat2.alpha = 1;
+  mat2.diffuseColor = new BABYLON.Color3(0, 1, 0);
+  sphere2.material = mat2;
+
+  sphere2.rotation.y = Math.PI / 6;
+  sphere2.position.x = 30;
+  sphere2.position.z = 5;
+  sphere2.position.y = 1;
+
+  let kidden2 = BABYLON.MeshBuilder.CreateBox("pointer", {height: 1}, scene);
+  kidden2.parent=sphere2;
+  kidden2.position.y= 0;
+  kidden2.position.x=1;
+  kidden2.material = mat2;
+
+  // This targets the camera to scene origin
+  camera.setTarget(sphere.position);
+
+  // Our built-in 'ground' shape.
+  let ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 500, height: 500}, scene);
+  ground.physicsImpostor = new BABYLON.PhysicsImpostor(ground, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0, friction: 1, restitution: 0 }, scene);
+  ground.checkCollisions = true;
+
+  wall = BABYLON.MeshBuilder.CreateBox("Wall", {size:5, height: 4}, scene)
+  let brown = new BABYLON.StandardMaterial(scene);
+  brown.alpha = 1;
+  brown.diffuseColor = new BABYLON.Color3(0.89, 0.75, 0.35);
+  wall.material = brown;
+  wall.physicsImpostor = new BABYLON.PhysicsImpostor(wall, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0, restitution: 1}, scene);
+  wall.checkCollisions = true;
+
+  let whichwall;
+  //wide
+  walls.push(BABYLON.MeshBuilder.CreateBox("Wall", {height: 4, width: 110, depth: 5}, scene));
+  whichwall = walls.length - 1;
+  walls[whichwall].position.x = 0;
+  walls[whichwall].position.y = 2;
+  walls[whichwall].physicsImpostor = new BABYLON.PhysicsImpostor(walls[whichwall], BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0, restitution: 1}, scene);
+  walls[whichwall].isVisible = false;
+
+  walls.push(BABYLON.MeshBuilder.CreateBox("Wall", {height: 4, width: 110, depth: 5}, scene));
+  whichwall = walls.length - 1;
+  walls[whichwall].position.z = 55;
+  walls[whichwall].position.y = 2;
+  walls[whichwall].physicsImpostor = new BABYLON.PhysicsImpostor(walls[whichwall], BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0, restitution: 1}, scene);
+  walls[whichwall].isVisible = false;
+
+  //long
+  walls.push( BABYLON.MeshBuilder.CreateBox("Wall", {height: 4, depth: 70, width: 5}, scene));
+  whichwall = walls.length - 1;
+  walls[whichwall].position.z = 30;
+  walls[whichwall].position.x = -50;
+  walls[whichwall].position.y = 2;
+  walls[whichwall].physicsImpostor = new BABYLON.PhysicsImpostor(walls[whichwall], BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0, restitution: 1}, scene);
+  walls[whichwall].isVisible = false;
+
+  walls.push(BABYLON.MeshBuilder.CreateBox("Wall", {height: 4, depth: 70, width: 5}, scene));
+  whichwall = walls.length - 1;
+  walls[whichwall].position.z = 30;
+  walls[whichwall].position.x = 45;
+  walls[whichwall].position.y = 2;
+  walls[whichwall].physicsImpostor = new BABYLON.PhysicsImpostor(walls[whichwall], BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0, restitution: 1}, scene);
+  walls[whichwall].isVisible = false;
+
+  walls.push(BABYLON.MeshBuilder.CreateBox("Wall", {height: 4, width: 5, depth: 10}, scene));
+  whichwall = walls.length - 1;
+  walls[whichwall].position.z = 27.5;
+  walls[whichwall].position.x = 22;
+  walls[whichwall].position.y = 2;
+  walls[whichwall].physicsImpostor = new BABYLON.PhysicsImpostor(walls[whichwall], BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0, restitution: 1}, scene);
+  walls[whichwall].isVisible = false;
+
+  walls.push(BABYLON.MeshBuilder.CreateBox("Wall", {height: 4, width: 5, depth: 10}, scene));
+  whichwall = walls.length - 1;
+  walls[whichwall].position.z = 27.5;
+  walls[whichwall].position.x = -31;
+  walls[whichwall].position.y = 2;
+  walls[whichwall].physicsImpostor = new BABYLON.PhysicsImpostor(walls[whichwall], BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0, restitution: 1}, scene);
+  walls[whichwall].isVisible = false;
+
+
+  for(let objectnum = 0; objectnum < objectpos.length;objectnum++){
+    // if(objectpos[objectnum].Object === "wall"){
+    createwall(scene, objectpos[objectnum].X, objectpos[objectnum].Y)
+    // }
+  }
+
+
+
+  scene.registerBeforeRender(()=>{
+    if(lock){
+      //key stuff
+      onkeydown = onkeyup = function(e){
+        e = e || event;
+        map[e.keyCode] = e.type == 'keydown';
+        let axis = new BABYLON.Vector3(0, 1, 0);
+        let theta;
+        let quaternion;
+        let flip;
+        let vcheck=0;
+        let hcheck = 0;
+        console.log(map)
+        console.log(sphere.position.x+'X')
+        console.log(sphere.position.z+'Y')
+
+        //vertical
+        if(map["87"]){
+          theta = Math.PI/2;
+          quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
+          sphere.rotationQuaternion = quaternion;
+          // zero
+          flip = sphere.physicsImpostor.getLinearVelocity().z *-1
+          sphere.physicsImpostor.applyImpulse(new BABYLON.Vector3(0,0,flip), sphere.getAbsolutePosition())
+          //move
+          sphere.physicsImpostor.applyImpulse(new BABYLON.Vector3(0,0,-8), sphere.getAbsolutePosition())
+          direct = "PX"
+        }else if (map["83"]) {
+          theta = Math.PI/2*3;
+          quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
+          sphere.rotationQuaternion = quaternion;
+          // zero
+          flip = sphere.physicsImpostor.getLinearVelocity().z *-1
+          sphere.physicsImpostor.applyImpulse(new BABYLON.Vector3(0,0,flip), sphere.getAbsolutePosition())
+          //move
+          sphere.physicsImpostor.applyImpulse(new BABYLON.Vector3(0,0,8), sphere.getAbsolutePosition())
+          direct = "MX"
+        }else{
+          vcheck +=1;
+        }
+
+        //horizontal
+        if (map["65"]) {
+          theta = Math.PI*2;
+          quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
+          sphere.rotationQuaternion = quaternion;
+          // zero
+          flip = sphere.physicsImpostor.getLinearVelocity().x *-1
+          sphere.physicsImpostor.applyImpulse(new BABYLON.Vector3(flip,0,0), sphere.getAbsolutePosition())
+          //move
+          sphere.physicsImpostor.applyImpulse(new BABYLON.Vector3(8,0,0), sphere.getAbsolutePosition())
+          direct = "PY"
+        }else if (map["68"]) {
+          theta = Math.PI;
+          quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
+          sphere.rotationQuaternion = quaternion;
+          // zero
+          flip = sphere.physicsImpostor.getLinearVelocity().x *-1
+          sphere.physicsImpostor.applyImpulse(new BABYLON.Vector3(flip,0,0), sphere.getAbsolutePosition())
+          //move
+          sphere.physicsImpostor.applyImpulse(new BABYLON.Vector3(-8,0,0), sphere.getAbsolutePosition())
+          direct = "MY"
+        }else{
+          hcheck +=1;
+        }
+
+        //diagnal sight
+        if(map["65"] && map["87"]){
+          theta = Math.PI / 4;
+          quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
+          sphere.rotationQuaternion = quaternion;
+          direct = "PXPY"
+
+        }else if(map["68"] && map["87"]){
+          theta = Math.PI / 4 * 3;
+          quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
+          sphere.rotationQuaternion = quaternion;
+          direct = "PXMY"
+
+        }else if(map["65"] && map["83"]){
+          theta = Math.PI/ 4 * 7;
+          quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
+          sphere.rotationQuaternion = quaternion;
+          direct = "MXPY"
+
+        }else if(map["68"] && map["83"]){
+          theta = Math.PI/ 4 * 5;
+          quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
+          sphere.rotationQuaternion = quaternion;
+          direct = "MXMY"
+        }
+
+        //spell
+        //check that kidden isn't in a wall TOD0
+        if(map["32"]){
+          if(atktimer == false){
+            fireball(direct, scene, kidden)
+            atktimer = true;
+            firesound.play()
+            setTimeout(()=>{
+              atktimer = false;
+            }, 200)
           }
-          health = data.health
-        })
-      })
-    })
+        }
 
 
-    let createScene = () => {
 
-      // This creates a basic Babylon Scene object (non-mesh)
-      scene = new BABYLON.Scene(engine);
+        //stop movement if no input
+        if(vcheck){
+          flip = sphere.physicsImpostor.getLinearVelocity().z *-1
+          sphere.physicsImpostor.applyImpulse(new BABYLON.Vector3(0,0,flip), sphere.getAbsolutePosition())
+        }
+        if(hcheck){
+          flip = sphere.physicsImpostor.getLinearVelocity().x *-1
+          sphere.physicsImpostor.applyImpulse(new BABYLON.Vector3(flip,0,0), sphere.getAbsolutePosition())
+        }
+      }
+      sphere.physicsImpostor.setAngularVelocity(new BABYLON.Quaternion(0, 1, 0, 0));
+      sphere.physicsImpostor.setAngularVelocity(new BABYLON.Quaternion(0, 0, 1, 0));
+      sphere.physicsImpostor.setAngularVelocity(new BABYLON.Quaternion(0, 0, 0, 1));
+      sphere.position.y = 2;
 
-      let gravity = new BABYLON.Vector3(0, 0, 0)
-      scene.enablePhysics(gravity, new BABYLON.OimoJSPlugin())
-
-      // This creates and positions a free camera (non-mesh)
-      let camera = new BABYLON.FollowCamera("camera1", new BABYLON.Vector3(0, 40, 0), scene);
-
-      // This creates a light, aiming 0,1,0 - to the sky (non-mesh)
-      let light = new BABYLON.HemisphericLight("light", new BABYLON.Vector3(0, 1, 0), scene);
-
-      // Default intensity is 1. Let's dim the light a small amount
-      light.intensity = 0.7;
-
-      let music = new BABYLON.Sound("Music", "/Sounds/Dragon Ball Super Ultra Instinct Ka Ka Kachi Daze Goku vs Jiren Fight Song.mp3", scene, ()=>{music.play}, { loop: true, autoplay: true });
-      let firesound = new BABYLON.Sound("Music", "/Sounds/FireIgnite.mp3", scene, ()=>{music.play}, { loop: false, autoplay: false });
-      // Our built-in 'sphere' shape.
-      sphere = BABYLON.MeshBuilder.CreateSphere("sphere", {diameter: 2, segments: 32}, scene);
-      sphere.physicsImpostor = new BABYLON.PhysicsImpostor(sphere, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 1, friction: 0, restitution: 0}, scene);
-      sphere.checkCollisions = true;
-
-      let mat = new BABYLON.StandardMaterial(scene);
-      mat.alpha = 1;
-      mat.diffuseColor = new BABYLON.Color3(0, 0, 0);
-      sphere.material = mat;
-
-      sphere.rotation.y = Math.PI / 6;
-      sphere.position.x = -30;
-      sphere.position.z = 5;
-      sphere.position.y = 1;
-
+      //camera follow
       camera.position.x = sphere.position.x;
       camera.position.z = sphere.position.z;
 
-      let kidden = BABYLON.MeshBuilder.CreateBox("pointer", {height: 1}, scene);
-      kidden.parent=sphere;
-      kidden.position.y= 0;
-      kidden.position.x=1;
-      kidden.material = mat;
-
-      //player 2
-      sphere2 = BABYLON.MeshBuilder.CreateSphere("sphere2", {diameter: 2, segments: 32}, scene);
-      sphere2.physicsImpostor = new BABYLON.PhysicsImpostor(sphere2, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 1, friction: 0, restitution: 0}, scene);
-      sphere2.checkCollisions = true;
-
-      let mat2 = new BABYLON.StandardMaterial(scene);
-      mat2.alpha = 1;
-      mat2.diffuseColor = new BABYLON.Color3(0, 1, 0);
-      sphere2.material = mat2;
-
-      sphere2.rotation.y = Math.PI / 6;
-      sphere2.position.x = 30;
-      sphere2.position.z = 5;
-      sphere2.position.y = 1;
-
-      let kidden2 = BABYLON.MeshBuilder.CreateBox("pointer", {height: 1}, scene);
-      kidden2.parent=sphere2;
-      kidden2.position.y= 0;
-      kidden2.position.x=1;
-      kidden2.material = mat2;
-
-      // This targets the camera to scene origin
-      camera.setTarget(sphere.position);
-
-      // Our built-in 'ground' shape.
-      let ground = BABYLON.MeshBuilder.CreateGround("ground", {width: 500, height: 500}, scene);
-      ground.physicsImpostor = new BABYLON.PhysicsImpostor(ground, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0, friction: 1, restitution: 0 }, scene);
-      ground.checkCollisions = true;
-
-      wall = BABYLON.MeshBuilder.CreateBox("Wall", {size:5, height: 4}, scene)
-      let brown = new BABYLON.StandardMaterial(scene);
-      brown.alpha = 1;
-      brown.diffuseColor = new BABYLON.Color3(0.89, 0.75, 0.35);
-      wall.material = brown;
-      wall.physicsImpostor = new BABYLON.PhysicsImpostor(wall, BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0, restitution: 1}, scene);
-      wall.checkCollisions = true;
-
-      let whichwall;
-      //wide
-      walls.push(BABYLON.MeshBuilder.CreateBox("Wall", {height: 4, width: 110, depth: 5}, scene));
-      whichwall = walls.length - 1;
-      walls[whichwall].position.x = 0;
-      walls[whichwall].position.y = 2;
-      walls[whichwall].physicsImpostor = new BABYLON.PhysicsImpostor(walls[whichwall], BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0, restitution: 1}, scene);
-      walls[whichwall].isVisible = false;
-
-      walls.push(BABYLON.MeshBuilder.CreateBox("Wall", {height: 4, width: 110, depth: 5}, scene));
-      whichwall = walls.length - 1;
-      walls[whichwall].position.z = 55;
-      walls[whichwall].position.y = 2;
-      walls[whichwall].physicsImpostor = new BABYLON.PhysicsImpostor(walls[whichwall], BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0, restitution: 1}, scene);
-      walls[whichwall].isVisible = false;
-
-      //long
-      walls.push( BABYLON.MeshBuilder.CreateBox("Wall", {height: 4, depth: 70, width: 5}, scene));
-      whichwall = walls.length - 1;
-      walls[whichwall].position.z = 30;
-      walls[whichwall].position.x = -50;
-      walls[whichwall].position.y = 2;
-      walls[whichwall].physicsImpostor = new BABYLON.PhysicsImpostor(walls[whichwall], BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0, restitution: 1}, scene);
-      walls[whichwall].isVisible = false;
-
-      walls.push(BABYLON.MeshBuilder.CreateBox("Wall", {height: 4, depth: 70, width: 5}, scene));
-      whichwall = walls.length - 1;
-      walls[whichwall].position.z = 30;
-      walls[whichwall].position.x = 45;
-      walls[whichwall].position.y = 2;
-      walls[whichwall].physicsImpostor = new BABYLON.PhysicsImpostor(walls[whichwall], BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0, restitution: 1}, scene);
-      walls[whichwall].isVisible = false;
-
-      walls.push(BABYLON.MeshBuilder.CreateBox("Wall", {height: 4, width: 5, depth: 10}, scene));
-      whichwall = walls.length - 1;
-      walls[whichwall].position.z = 27.5;
-      walls[whichwall].position.x = 22;
-      walls[whichwall].position.y = 2;
-      walls[whichwall].physicsImpostor = new BABYLON.PhysicsImpostor(walls[whichwall], BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0, restitution: 1}, scene);
-      walls[whichwall].isVisible = false;
-
-      walls.push(BABYLON.MeshBuilder.CreateBox("Wall", {height: 4, width: 5, depth: 10}, scene));
-      whichwall = walls.length - 1;
-      walls[whichwall].position.z = 27.5;
-      walls[whichwall].position.x = -31;
-      walls[whichwall].position.y = 2;
-      walls[whichwall].physicsImpostor = new BABYLON.PhysicsImpostor(walls[whichwall], BABYLON.PhysicsImpostor.BoxImpostor, { mass: 0, restitution: 1}, scene);
-      walls[whichwall].isVisible = false;
 
 
-      for(let objectnum = 0; objectnum < objectpos.length;objectnum++){
-        // if(objectpos[objectnum].Object === "wall"){
-        createwall(scene, objectpos[objectnum].X, objectpos[objectnum].Y)
-        // }
+      for(let zed = 0; zed < fireballs.length; zed++){
+        if(fireballs[zed]){
+          console.log(1)
+          // for(let exe = 0; exe < walls.length; exe++){
+          if(fireballs[zed].intersectsMesh(walls[0], true)){
+            fireballs[zed].dispose();
+            fireballs[zed] = 0;
+            spellcatalog["fireballs"]["number"] -=1;
+          }
+          // }
+        }
       }
 
-
-
-      scene.registerBeforeRender(()=>{
-        if(lock){
-          //key stuff
-          onkeydown = onkeyup = function(e){
-            e = e || event;
-            map[e.keyCode] = e.type == 'keydown';
-            let axis = new BABYLON.Vector3(0, 1, 0);
-            let theta;
-            let quaternion;
-            let flip;
-            let vcheck=0;
-            let hcheck = 0;
-            console.log(map)
-            console.log(sphere.position.x+'X')
-            console.log(sphere.position.z+'Y')
-
-            //vertical
-            if(map["87"]){
-              theta = Math.PI/2;
-              quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
-              sphere.rotationQuaternion = quaternion;
-              // zero
-              flip = sphere.physicsImpostor.getLinearVelocity().z *-1
-              sphere.physicsImpostor.applyImpulse(new BABYLON.Vector3(0,0,flip), sphere.getAbsolutePosition())
-              //move
-              sphere.physicsImpostor.applyImpulse(new BABYLON.Vector3(0,0,-8), sphere.getAbsolutePosition())
-              direct = "PX"
-            }else if (map["83"]) {
-              theta = Math.PI/2*3;
-              quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
-              sphere.rotationQuaternion = quaternion;
-              // zero
-              flip = sphere.physicsImpostor.getLinearVelocity().z *-1
-              sphere.physicsImpostor.applyImpulse(new BABYLON.Vector3(0,0,flip), sphere.getAbsolutePosition())
-              //move
-              sphere.physicsImpostor.applyImpulse(new BABYLON.Vector3(0,0,8), sphere.getAbsolutePosition())
-              direct = "MX"
-            }else{
-              vcheck +=1;
-            }
-
-            //horizontal
-            if (map["65"]) {
-              theta = Math.PI*2;
-              quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
-              sphere.rotationQuaternion = quaternion;
-              // zero
-              flip = sphere.physicsImpostor.getLinearVelocity().x *-1
-              sphere.physicsImpostor.applyImpulse(new BABYLON.Vector3(flip,0,0), sphere.getAbsolutePosition())
-              //move
-              sphere.physicsImpostor.applyImpulse(new BABYLON.Vector3(8,0,0), sphere.getAbsolutePosition())
-              direct = "PY"
-            }else if (map["68"]) {
-              theta = Math.PI;
-              quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
-              sphere.rotationQuaternion = quaternion;
-              // zero
-              flip = sphere.physicsImpostor.getLinearVelocity().x *-1
-              sphere.physicsImpostor.applyImpulse(new BABYLON.Vector3(flip,0,0), sphere.getAbsolutePosition())
-              //move
-              sphere.physicsImpostor.applyImpulse(new BABYLON.Vector3(-8,0,0), sphere.getAbsolutePosition())
-              direct = "MY"
-            }else{
-              hcheck +=1;
-            }
-
-            //diagnal sight
-            if(map["65"] && map["87"]){
-              theta = Math.PI / 4;
-              quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
-              sphere.rotationQuaternion = quaternion;
-              direct = "PXPY"
-
-            }else if(map["68"] && map["87"]){
-              theta = Math.PI / 4 * 3;
-              quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
-              sphere.rotationQuaternion = quaternion;
-              direct = "PXMY"
-
-            }else if(map["65"] && map["83"]){
-              theta = Math.PI/ 4 * 7;
-              quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
-              sphere.rotationQuaternion = quaternion;
-              direct = "MXPY"
-
-            }else if(map["68"] && map["83"]){
-              theta = Math.PI/ 4 * 5;
-              quaternion = new BABYLON.Quaternion.RotationAxis(axis, theta);
-              sphere.rotationQuaternion = quaternion;
-              direct = "MXMY"
-            }
-
-            //spell
-            //check that kidden isn't in a wall TOD0
-            if(map["32"]){
-              if(atktimer == false){
-                fireball(direct, scene, kidden)
-                atktimer = true;
-                firesound.play()
-                setTimeout(()=>{
-                  atktimer = false;
-                }, 200)
-              }
-            }
-
-
-
-            //stop movement if no input
-            if(vcheck){
-              flip = sphere.physicsImpostor.getLinearVelocity().z *-1
-              sphere.physicsImpostor.applyImpulse(new BABYLON.Vector3(0,0,flip), sphere.getAbsolutePosition())
-            }
-            if(hcheck){
-              flip = sphere.physicsImpostor.getLinearVelocity().x *-1
-              sphere.physicsImpostor.applyImpulse(new BABYLON.Vector3(flip,0,0), sphere.getAbsolutePosition())
-            }
+      for(let zed = 0; zed < fireballs.length; zed++){
+        if(fireballs[zed]){
+          console.log(1)
+          // for(let exe = 0; exe < walls.length; exe++){
+          if(fireballs[zed].intersectsMesh(walls[1], true)){
+            fireballs[zed].dispose();
+            fireballs[zed] = 0;
+            spellcatalog["fireballs"]["number"] -=1;
           }
-          sphere.physicsImpostor.setAngularVelocity(new BABYLON.Quaternion(0, 1, 0, 0));
-          sphere.physicsImpostor.setAngularVelocity(new BABYLON.Quaternion(0, 0, 1, 0));
-          sphere.physicsImpostor.setAngularVelocity(new BABYLON.Quaternion(0, 0, 0, 1));
-          sphere.position.y = 2;
-
-          //camera follow
-          camera.position.x = sphere.position.x;
-          camera.position.z = sphere.position.z;
-
-
-
-          for(let zed = 0; zed < fireballs.length; zed++){
-            if(fireballs[zed]){
-              console.log(1)
-              // for(let exe = 0; exe < walls.length; exe++){
-              if(fireballs[zed].intersectsMesh(walls[0], true)){
-                fireballs[zed].dispose();
-                fireballs[zed] = 0;
-                spellcatalog["fireballs"]["number"] -=1;
-              }
-              // }
-            }
-          }
-
-          for(let zed = 0; zed < fireballs.length; zed++){
-            if(fireballs[zed]){
-              console.log(1)
-              // for(let exe = 0; exe < walls.length; exe++){
-              if(fireballs[zed].intersectsMesh(walls[1], true)){
-                fireballs[zed].dispose();
-                fireballs[zed] = 0;
-                spellcatalog["fireballs"]["number"] -=1;
-              }
-              // }
-            }
-          }
-
-          for(let zed = 0; zed < fireballs.length; zed++){
-            if(fireballs[zed]){
-              console.log(1)
-              // for(let exe = 0; exe < walls.length; exe++){
-              if(fireballs[zed].intersectsMesh(walls[2], true)){
-                fireballs[zed].dispose();
-                fireballs[zed] = 0;
-                spellcatalog["fireballs"]["number"] -=1;
-              }
-              // }
-            }
-          }
-
-          for(let zed = 0; zed < fireballs.length; zed++){
-            if(fireballs[zed]){
-              console.log(1)
-              // for(let exe = 0; exe < walls.length; exe++){
-              if(fireballs[zed].intersectsMesh(walls[3], true)){
-                fireballs[zed].dispose();
-                fireballs[zed] = 0;
-                spellcatalog["fireballs"]["number"] -=1;
-              }
-              // }
-            }
-          }
-
-          for(let zed = 0; zed < fireballs.length; zed++){
-            if(fireballs[zed]){
-              console.log(1)
-              // for(let exe = 0; exe < walls.length; exe++){
-              if(fireballs[zed].intersectsMesh(walls[4], true)){
-                fireballs[zed].dispose();
-                fireballs[zed] = 0;
-                spellcatalog["fireballs"]["number"] -=1;
-              }
-              // }
-            }
-          }
-
-          for(let zed = 0; zed < fireballs.length; zed++){
-            if(fireballs[zed]){
-              console.log(1)
-              // for(let exe = 0; exe < walls.length; exe++){
-              if(fireballs[zed].intersectsMesh(walls[5], true)){
-                fireballs[zed].dispose();
-                fireballs[zed] = 0;
-                spellcatalog["fireballs"]["number"] -=1;
-              }
-              // }
-            }
-          }
-
-          for(let zed = 0; zed < fireballs.length; zed++){
-            if(fireballs[zed]){
-              console.log(1)
-              // for(let exe = 0; exe < walls.length; exe++){
-              if(fireballs[zed].intersectsMesh(sphere2, true)){
-                fireballs[zed].dispose();
-                fireballs[zed] = 0;
-                if(Math.round(Math.random()*100) >  90){
-                  senddata.health -= 2;
-                }else{
-                  senddata.health -= 1;
-                }
-                spellcatalog["fireballs"]["number"] -=1;
-              }
-              // }
-            }
-          }
-
-          sphere2.physicsImpostor.setLinearVelocity(nospeed)
-
-          if(typeof sphere !== "undefined"){
-            senddata.Oplayer.pos.x = sphere.position.x;
-            senddata.Oplayer.pos.y = sphere.position.y;
-            senddata.Oplayer.pos.z = sphere.position.z;
-            senddata.Oplayer.rot.x = sphere.rotationQuaternion.x;
-            senddata.Oplayer.rot.y = sphere.rotationQuaternion.y;
-            senddata.Oplayer.rot.z = sphere.rotationQuaternion.z;
-            senddata.Oplayer.rot.w = sphere.rotationQuaternion.w;
-
-            for(let x = 0;x < fireballs.length;x++){
-              if(fireballs[x] !== 0){
-                let phire = fireballs[x].position;
-                senddata.fireball[x] = {"x": phire.x, "y": phire.y, "z": phire.z}
-              }else{
-                senddata.fireball[x] = 0;
-              }
-            }
-            peerconnected.send(senddata)
-          }
-          if(health <= 0){
-            $("#res").html("LOSE")
-            setTimeout(()=>{
-              window.location.replace($.host + "/waiting-for-game/");
-            },10000)
-          }
-
-          if(senddata.health <= 0){
-            $("#res").html("WIN")
-            setTimeout(()=>{
-              window.location.replace($.host + "/waiting-for-game/");
-            },10000)
-          }
-          // sphere2.physicsImpostor.setLinearVelocity(0,0,0)
+          // }
         }
+      }
 
-      })
+      for(let zed = 0; zed < fireballs.length; zed++){
+        if(fireballs[zed]){
+          console.log(1)
+          // for(let exe = 0; exe < walls.length; exe++){
+          if(fireballs[zed].intersectsMesh(walls[2], true)){
+            fireballs[zed].dispose();
+            fireballs[zed] = 0;
+            spellcatalog["fireballs"]["number"] -=1;
+          }
+          // }
+        }
+      }
 
-      return scene;
+      for(let zed = 0; zed < fireballs.length; zed++){
+        if(fireballs[zed]){
+          console.log(1)
+          // for(let exe = 0; exe < walls.length; exe++){
+          if(fireballs[zed].intersectsMesh(walls[3], true)){
+            fireballs[zed].dispose();
+            fireballs[zed] = 0;
+            spellcatalog["fireballs"]["number"] -=1;
+          }
+          // }
+        }
+      }
 
-    };
+      for(let zed = 0; zed < fireballs.length; zed++){
+        if(fireballs[zed]){
+          console.log(1)
+          // for(let exe = 0; exe < walls.length; exe++){
+          if(fireballs[zed].intersectsMesh(walls[4], true)){
+            fireballs[zed].dispose();
+            fireballs[zed] = 0;
+            spellcatalog["fireballs"]["number"] -=1;
+          }
+          // }
+        }
+      }
 
-    let fireball = (direction, scene, kid)=>{
-      if(spellcatalog["fireballs"]["number"] < fireballs.length){
-        let y = 0;
+      for(let zed = 0; zed < fireballs.length; zed++){
+        if(fireballs[zed]){
+          console.log(1)
+          // for(let exe = 0; exe < walls.length; exe++){
+          if(fireballs[zed].intersectsMesh(walls[5], true)){
+            fireballs[zed].dispose();
+            fireballs[zed] = 0;
+            spellcatalog["fireballs"]["number"] -=1;
+          }
+          // }
+        }
+      }
+
+      for(let zed = 0; zed < fireballs.length; zed++){
+        if(fireballs[zed]){
+          console.log(1)
+          // for(let exe = 0; exe < walls.length; exe++){
+          if(fireballs[zed].intersectsMesh(sphere2, true)){
+            fireballs[zed].dispose();
+            fireballs[zed] = 0;
+            if(Math.round(Math.random()*100) >  90){
+              senddata.health -= 2;
+            }else{
+              senddata.health -= 1;
+            }
+            spellcatalog["fireballs"]["number"] -=1;
+          }
+          // }
+        }
+      }
+
+      sphere2.physicsImpostor.setLinearVelocity(nospeed)
+
+      if(typeof sphere !== "undefined"){
+        senddata.Oplayer.pos.x = sphere.position.x;
+        senddata.Oplayer.pos.y = sphere.position.y;
+        senddata.Oplayer.pos.z = sphere.position.z;
+        senddata.Oplayer.rot.x = sphere.rotationQuaternion.x;
+        senddata.Oplayer.rot.y = sphere.rotationQuaternion.y;
+        senddata.Oplayer.rot.z = sphere.rotationQuaternion.z;
+        senddata.Oplayer.rot.w = sphere.rotationQuaternion.w;
+
         for(let x = 0;x < fireballs.length;x++){
-          if(fireballs[x] == false){
-            y = x;
-            x = fireballs.length;
+          if(fireballs[x] !== 0){
+            let phire = fireballs[x].position;
+            senddata.fireball[x] = {"x": phire.x, "y": phire.y, "z": phire.z}
+          }else{
+            senddata.fireball[x] = 0;
           }
         }
-        fireballs[y] = BABYLON.MeshBuilder.CreateSphere("fireball", {diameter: 1, segments: 16}, scene);
-        fireballs[y].physicsImpostor = new BABYLON.PhysicsImpostor(fireballs[y], BABYLON.PhysicsImpostor.SphereImpostor, { mass: 1, friction: 0, restitution: 1}, scene);
-        console.log(BABYLON.Vector3.TransformCoordinates(kid.position, kid.getWorldMatrix()))
-        let kidglobal = BABYLON.Vector3.TransformCoordinates(kid.position, kid.getWorldMatrix());
-        fireballs[y].position = kidglobal;
-        fireballs[y].position.y = 1;
-        if(direction === "PXPY"){
-          fireballs[y].physicsImpostor.setLinearVelocity(new BABYLON.Vector3(25, 0, -25));
+        peerconnected.send(senddata)
+      }
+      if(health <= 0){
+        $("#res").html("LOSE")
+        setTimeout(()=>{
+          window.location.replace($.host + "/waiting-for-game/");
+        },10000)
+      }
 
-        }else if(direction === "PXMY"){
-          fireballs[y].physicsImpostor.setLinearVelocity(new BABYLON.Vector3(-25, 0, -25));
+      if(senddata.health <= 0){
+        $("#res").html("WIN")
+        setTimeout(()=>{
+          window.location.replace($.host + "/waiting-for-game/");
+        },10000)
+      }
+      // sphere2.physicsImpostor.setLinearVelocity(0,0,0)
+    }
 
-        }else if(direction === "MXPY"){
-          fireballs[y].physicsImpostor.setLinearVelocity(new BABYLON.Vector3(25, 0, 25));
+  })
 
-        }else if(direction === "MXMY"){
-          fireballs[y].physicsImpostor.setLinearVelocity(new BABYLON.Vector3(-25, 0, 25));
+  return scene;
 
-        }else if(direction === "PX"){
-          fireballs[y].physicsImpostor.setLinearVelocity(new BABYLON.Vector3(0, 0, -25));
+};
 
-        }else if(direction === "MX"){
-          fireballs[y].physicsImpostor.setLinearVelocity(new BABYLON.Vector3(0, 0, 25));
-
-        }else if(direction === "PY"){
-          fireballs[y].physicsImpostor.setLinearVelocity(new BABYLON.Vector3(25, 0, 0));
-
-        }else if(direction === "MY"){
-          fireballs[y].physicsImpostor.setLinearVelocity(new BABYLON.Vector3(-25, 0, 0));
-
-        }
-        fireballs[y].checkCollisions = true;
-        let red = new BABYLON.StandardMaterial(scene);
-        red.alpha = 1;
-        red.diffuseColor = new BABYLON.Color3(1, 0, 0);
-        fireballs[y].material = red;
-        spellcatalog["fireballs"]["number"] +=1;
+let fireball = (direction, scene, kid)=>{
+  if(spellcatalog["fireballs"]["number"] < fireballs.length){
+    let y = 0;
+    for(let x = 0;x < fireballs.length;x++){
+      if(fireballs[x] == false){
+        y = x;
+        x = fireballs.length;
       }
     }
+    fireballs[y] = BABYLON.MeshBuilder.CreateSphere("fireball", {diameter: 1, segments: 16}, scene);
+    fireballs[y].physicsImpostor = new BABYLON.PhysicsImpostor(fireballs[y], BABYLON.PhysicsImpostor.SphereImpostor, { mass: 1, friction: 0, restitution: 1}, scene);
+    console.log(BABYLON.Vector3.TransformCoordinates(kid.position, kid.getWorldMatrix()))
+    let kidglobal = BABYLON.Vector3.TransformCoordinates(kid.position, kid.getWorldMatrix());
+    fireballs[y].position = kidglobal;
+    fireballs[y].position.y = 1;
+    if(direction === "PXPY"){
+      fireballs[y].physicsImpostor.setLinearVelocity(new BABYLON.Vector3(25, 0, -25));
 
-    let createwall = (scene, x, z)=>{
-      let wallinstant = wall.createInstance();
-      wallinstant.position.x = z- 50;
-      wallinstant.position.z = x;
-      wallinstant.position.y = 2;
+    }else if(direction === "PXMY"){
+      fireballs[y].physicsImpostor.setLinearVelocity(new BABYLON.Vector3(-25, 0, -25));
+
+    }else if(direction === "MXPY"){
+      fireballs[y].physicsImpostor.setLinearVelocity(new BABYLON.Vector3(25, 0, 25));
+
+    }else if(direction === "MXMY"){
+      fireballs[y].physicsImpostor.setLinearVelocity(new BABYLON.Vector3(-25, 0, 25));
+
+    }else if(direction === "PX"){
+      fireballs[y].physicsImpostor.setLinearVelocity(new BABYLON.Vector3(0, 0, -25));
+
+    }else if(direction === "MX"){
+      fireballs[y].physicsImpostor.setLinearVelocity(new BABYLON.Vector3(0, 0, 25));
+
+    }else if(direction === "PY"){
+      fireballs[y].physicsImpostor.setLinearVelocity(new BABYLON.Vector3(25, 0, 0));
+
+    }else if(direction === "MY"){
+      fireballs[y].physicsImpostor.setLinearVelocity(new BABYLON.Vector3(-25, 0, 0));
 
     }
+    fireballs[y].checkCollisions = true;
+    let red = new BABYLON.StandardMaterial(scene);
+    red.alpha = 1;
+    red.diffuseColor = new BABYLON.Color3(1, 0, 0);
+    fireballs[y].material = red;
+    spellcatalog["fireballs"]["number"] +=1;
+  }
+}
 
-    let engine = new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
-    let act = createScene();
+let createwall = (scene, x, z)=>{
+  let wallinstant = wall.createInstance();
+  wallinstant.position.x = z- 50;
+  wallinstant.position.z = x;
+  wallinstant.position.y = 2;
 
-    engine.runRenderLoop(function () {
-      if (act) {
-        act.render();
-      }
-    });
+}
 
-    // Resize
-    window.addEventListener("resize", function () {
-      engine.resize();
-    });
+let engine = new BABYLON.Engine(canvas, true, { preserveDrawingBuffer: true, stencil: true });
+let act = createScene();
 
-    let cookiefinder = (cookname) =>{
-      // let text = "Username=null; DuelingMagesSOCOOLVERYHOTWOWIEWOWOMGGOD1LOLOLOOLO=null";
-      let name = cookname + "=";
-      let cookies = document.cookie.split(";")
-      let copy;
-      for(let x=0;x < cookies.length;x++){
-        if(x == 0){
-          copy = cookies[x].substr(0,name.length)
-        }else{
-          copy = cookies[x].substr(1,name.length)
-        }
-        console.log(copy)
-        if(name === copy){
-          return cookies[x].substr(name.length + 1,cookies[x].length - 1)
-        }
-      }
+engine.runRenderLoop(function () {
+  if (act) {
+    act.render();
+  }
+});
+
+// Resize
+window.addEventListener("resize", function () {
+  engine.resize();
+});
+
+let cookiefinder = (cookname) =>{
+  // let text = "Username=null; DuelingMagesSOCOOLVERYHOTWOWIEWOWOMGGOD1LOLOLOOLO=null";
+  let name = cookname + "=";
+  let cookies = document.cookie.split(";")
+  let copy;
+  for(let x=0;x < cookies.length;x++){
+    if(x == 0){
+      copy = cookies[x].substr(0,name.length)
+    }else{
+      copy = cookies[x].substr(1,name.length)
     }
-
-    let callpartner = ()=>{
-      $.ajax({
-        url:$.host + "/p2plist",
-        data: {
-          Username: cookiefinder("DuelingMagesSOCOOLVERYHOTWOWIEWOWOMGGOD1LOLOLOOLOp2pname")
-        },
-        type: "POST",
-        success: (data)=>{
-          console.log(data)
-          peerconnected = peer.connect(data[0][0].p2pid)
-          clearInterval(getpartner)
-
-        }
-      })
+    console.log(copy)
+    if(name === copy){
+      return cookies[x].substr(name.length + 1,cookies[x].length - 1)
     }
+  }
+}
 
-    </script>
-  </body>
-  </html>
+let callpartner = ()=>{
+  $.ajax({
+    url:$.host + "/p2plist",
+    data: {
+      Username: cookiefinder("DuelingMagesSOCOOLVERYHOTWOWIEWOWOMGGOD1LOLOLOOLOp2pname")
+    },
+    type: "POST",
+    success: (data)=>{
+      console.log(data)
+      peerconnected = peer.connect(data[0][0].p2pid)
+      clearInterval(getpartner)
+
+    }
+  })
+}
+
+</script>
+</body>
+</html>
